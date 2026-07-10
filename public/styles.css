@@ -73,7 +73,7 @@ p {
 }
 
 h1 {
-  font-size: 34px;
+  font-size: 31px;
   line-height: 1.12;
 }
 
@@ -453,8 +453,8 @@ button:disabled {
 
 #cuteMap {
   display: block;
-  height: calc(100vh - 36px);
-  min-height: 700px;
+  height: calc(100vh - 24px);
+  min-height: 740px;
   width: 100%;
 }
 
@@ -491,13 +491,13 @@ button:disabled {
 }
 
 .district-name {
-  fill: rgba(61, 74, 71, 0.36);
-  font-size: 19px;
+  fill: rgba(61, 74, 71, 0.26);
+  font-size: 24px;
   font-weight: 900;
   paint-order: stroke;
   pointer-events: none;
-  stroke: rgba(255, 249, 239, 0.62);
-  stroke-width: 4px;
+  stroke: rgba(255, 249, 239, 0.72);
+  stroke-width: 5px;
   text-anchor: middle;
 }
 
@@ -602,7 +602,7 @@ button:disabled {
 
 .map-name {
   fill: white;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 950;
   pointer-events: none;
   text-anchor: middle;
@@ -723,8 +723,8 @@ details .hospital-cards {
   }
 
   #cuteMap {
-    height: 66vh;
-    min-height: 620px;
+    height: 72vh;
+    min-height: 660px;
   }
 }
 
@@ -773,12 +773,14 @@ details .hospital-cards {
   }
 
   .map-wrap {
+    min-height: 0;
     padding: 10px;
   }
 
   #cuteMap {
-    height: 58vh;
-    min-height: 520px;
+    aspect-ratio: 835 / 780;
+    height: auto;
+    min-height: 0;
   }
 
   .map-title {
@@ -786,6 +788,14 @@ details .hospital-cards {
     min-width: 0;
     right: 14px;
     top: 14px;
+  }
+
+  .map-title {
+    margin: 0 0 8px;
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
   }
 
   .source-box {
