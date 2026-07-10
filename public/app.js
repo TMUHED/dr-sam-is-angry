@@ -490,7 +490,8 @@ function routeDeltaText(baseMetric, compareMetric) {
 
 function drawCuteMap() {
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
-  const tmuhPoint = project(tmuh);
+  const [tmuhLabelX, tmuhLabelY] = labelSlots[tmuhId];
+  const tmuhVisualTarget = { x: tmuhLabelX + 48, y: tmuhLabelY - 8 };
   const origin = selectedDistrict ? project(selectedDistrict) : null;
   const districtAreas = districtRegions.map((district, index) => {
     return `
@@ -504,7 +505,7 @@ function drawCuteMap() {
     return `<text class="district-name" x="${labelX}" y="${labelY}">${escapeHtml(district.name)}</text>`;
   }).join("");
   const routePath = origin
-    ? `M ${origin.x} ${origin.y} C ${origin.x + (tmuhPoint.x - origin.x) * 0.32} ${origin.y - 56}, ${origin.x + (tmuhPoint.x - origin.x) * 0.72} ${tmuhPoint.y - 72}, ${tmuhPoint.x} ${tmuhPoint.y}`
+    ? `M ${origin.x} ${origin.y} C ${origin.x + (tmuhVisualTarget.x - origin.x) * 0.34} ${origin.y - 60}, ${origin.x + (tmuhVisualTarget.x - origin.x) * 0.72} ${tmuhVisualTarget.y - 54}, ${tmuhVisualTarget.x} ${tmuhVisualTarget.y}`
     : "";
   const ambulanceRoute = origin ? `
     <g class="tmuh-route-layer">
@@ -579,7 +580,6 @@ function drawCuteMap() {
       <path class="legend-boundary" d="M 725 817 L 759 817" />
       <text x="768" y="821">淡色區塊：行政區示意</text>
     </g>
-    <path class="tmuh-spark" d="M ${tmuhPoint.x - 25} ${tmuhPoint.y - 25} L ${tmuhPoint.x - 13} ${tmuhPoint.y - 13} M ${tmuhPoint.x + 23} ${tmuhPoint.y - 20} L ${tmuhPoint.x + 12} ${tmuhPoint.y - 9} M ${tmuhPoint.x - 22} ${tmuhPoint.y + 24} L ${tmuhPoint.x - 10} ${tmuhPoint.y + 12}" />
   `;
 
   cuteMap.querySelectorAll(".map-hospital").forEach((node) => {

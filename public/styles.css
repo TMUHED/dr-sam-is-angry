@@ -608,13 +608,6 @@ button:disabled {
   text-anchor: middle;
 }
 
-.tmuh-spark {
-  fill: none;
-  stroke: #2b2f3a;
-  stroke-linecap: round;
-  stroke-width: 4;
-}
-
 .map-note rect {
   fill: rgba(255, 252, 247, 0.96);
   stroke: rgba(72, 60, 49, 0.18);
