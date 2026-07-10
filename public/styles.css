@@ -490,21 +490,12 @@ button:disabled {
   stroke-width: 34;
 }
 
-.road {
+.district-boundaries path {
   fill: none;
-  stroke-dasharray: 10 12;
+  opacity: 0.38;
+  stroke: #8fb084;
   stroke-linecap: round;
-  stroke-width: 8;
-}
-
-.road.artery {
-  stroke: #f2c96d;
-  stroke-width: 12;
-}
-
-.road.metro {
-  stroke: #ffad8f;
-  stroke-width: 8;
+  stroke-width: 2;
 }
 
 .origin-pin circle {
@@ -608,19 +599,11 @@ button:disabled {
   fill: var(--general);
 }
 
-.legend-road {
+.legend-boundary {
   fill: none;
-  stroke-dasharray: 7 8;
   stroke-linecap: round;
-  stroke-width: 5;
-}
-
-.legend-road.yellow {
-  stroke: #f2c96d;
-}
-
-.legend-road.coral {
-  stroke: #ffad8f;
+  stroke: #8fb084;
+  stroke-width: 3;
 }
 
 .source-box {

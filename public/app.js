@@ -505,16 +505,25 @@ function drawCuteMap() {
       <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#9b8273" flood-opacity=".18" />
       </filter>
+      <clipPath id="taipeiClip">
+        <path d="M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z" />
+      </clipPath>
     </defs>
     <rect class="map-paper" x="0" y="0" width="1000" height="860" rx="28" />
     <rect x="24" y="24" width="952" height="812" rx="24" fill="url(#softGrid)" opacity=".36" />
     <path class="taipei-shape" d="M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z" />
     <path class="river" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
-    <path class="road artery" d="M 150 667 C 281 570, 383 512, 529 465 S 783 394, 888 252" />
-    <path class="road artery" d="M 182 486 C 318 472, 455 463, 604 444 S 785 399, 884 342" />
-    <path class="road artery" d="M 524 744 C 545 618, 570 519, 603 415 S 675 224, 731 134" />
-    <path class="road metro" d="M 180 176 C 316 278, 468 319, 612 388 S 752 547, 874 626" />
-    <path class="road metro" d="M 302 742 C 360 605, 400 493, 460 353 S 584 200, 700 108" />
+    <g class="district-boundaries" clip-path="url(#taipeiClip)">
+      <path d="M 361 112 C 334 184, 333 246, 291 317 C 250 387, 210 441, 170 524" />
+      <path d="M 482 112 C 456 197, 444 286, 413 370 C 391 431, 360 491, 301 584" />
+      <path d="M 614 138 C 587 220, 561 294, 526 363 C 490 435, 449 503, 399 602" />
+      <path d="M 731 166 C 690 234, 657 309, 634 392 C 609 486, 603 581, 571 742" />
+      <path d="M 254 348 C 344 368, 434 394, 520 429 C 613 466, 698 512, 842 562" />
+      <path d="M 151 525 C 246 503, 341 490, 442 486 C 550 482, 651 489, 812 477" />
+      <path d="M 218 673 C 302 612, 371 571, 467 544 C 577 513, 679 516, 820 540" />
+      <path d="M 734 318 C 784 355, 835 405, 888 478 C 926 530, 927 578, 895 632" />
+      <path d="M 322 246 C 413 278, 492 306, 572 337 C 653 369, 731 405, 850 458" />
+    </g>
     ${districtBlobs}
     ${origin ? `<g class="origin-pin">
       <circle cx="${origin.x}" cy="${origin.y}" r="18" />
@@ -523,7 +532,7 @@ function drawCuteMap() {
     </g>` : ""}
     ${hospitalNodes}
     <g class="map-note">
-      <rect x="696" y="640" width="250" height="198" rx="14" />
+      <rect x="696" y="665" width="250" height="173" rx="14" />
       <text class="note-title" x="725" y="687">圖例</text>
       <rect class="legend-box tmuh" x="725" y="704" width="34" height="18" rx="6" />
       <text x="768" y="718">北醫附醫</text>
@@ -533,10 +542,8 @@ function drawCuteMap() {
       <text x="768" y="768">中度級急救責任醫院</text>
       <rect class="legend-box general" x="725" y="779" width="34" height="18" rx="6" />
       <text x="768" y="793">一般級急救責任醫院</text>
-      <path class="legend-road yellow" d="M 725 807 L 759 807" />
-      <text x="768" y="811">黃線：忠孝/基隆/市民幹道示意</text>
-      <path class="legend-road coral" d="M 725 827 L 759 827" />
-      <text x="768" y="831">紅線：板南/淡水信義捷運示意</text>
+      <path class="legend-boundary" d="M 725 817 L 759 817" />
+      <text x="768" y="821">淡線：行政區邊界示意</text>
     </g>
     <path class="tmuh-spark" d="M ${tmuhPoint.x - 25} ${tmuhPoint.y - 25} L ${tmuhPoint.x - 13} ${tmuhPoint.y - 13} M ${tmuhPoint.x + 23} ${tmuhPoint.y - 20} L ${tmuhPoint.x + 12} ${tmuhPoint.y - 9} M ${tmuhPoint.x - 22} ${tmuhPoint.y + 24} L ${tmuhPoint.x - 10} ${tmuhPoint.y + 12}" />
   `;
