@@ -312,6 +312,23 @@ const labelSlots = {
   wanfang: [595, 696]
 };
 
+const taipeiShapePath = "M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z";
+
+const districtRegions = [
+  { name: "北投", label: [345, 205], path: "M 306 92 C 370 50, 442 64, 494 104 C 520 124, 546 136, 580 136 L 542 221 L 430 252 L 330 222 L 232 204 C 241 151, 264 119, 306 92 Z" },
+  { name: "士林", label: [382, 332], path: "M 232 204 L 330 222 L 430 252 L 542 221 L 566 334 L 492 420 L 352 430 L 220 360 C 222 305, 225 250, 232 204 Z" },
+  { name: "內湖", label: [735, 340], path: "M 580 136 C 680 110, 803 128, 856 205 C 893 266, 870 337, 910 389 C 930 414, 936 445, 927 476 L 790 456 L 650 392 L 566 334 L 542 221 L 580 136 Z" },
+  { name: "大同", label: [210, 466], path: "M 139 330 C 168 312, 192 280, 211 230 L 220 360 L 352 430 L 314 512 L 194 562 L 83 509 C 54 441, 80 364, 139 330 Z" },
+  { name: "中山", label: [438, 465], path: "M 352 430 L 492 420 L 566 334 L 650 392 L 620 496 L 492 538 L 384 516 L 314 512 Z" },
+  { name: "松山", label: [655, 482], path: "M 650 392 L 790 456 L 774 548 L 642 584 L 620 496 Z" },
+  { name: "南港", label: [837, 548], path: "M 790 456 L 927 476 C 919 512, 893 546, 854 565 C 808 583, 783 608, 760 641 L 642 584 L 774 548 Z" },
+  { name: "萬華", label: [145, 552], path: "M 83 509 L 194 562 L 256 630 L 236 719 C 205 704, 181 681, 171 652 C 157 588, 108 566, 83 509 Z" },
+  { name: "中正", label: [310, 590], path: "M 194 562 L 314 512 L 384 516 L 384 628 L 304 682 L 256 630 Z" },
+  { name: "大安", label: [477, 605], path: "M 384 516 L 492 538 L 620 496 L 642 584 L 574 696 L 445 686 L 384 628 Z" },
+  { name: "信義", label: [658, 642], path: "M 642 584 L 760 641 C 750 658, 740 677, 731 698 C 703 740, 662 769, 620 776 L 574 696 Z" },
+  { name: "文山", label: [438, 730], path: "M 236 719 L 304 682 L 384 628 L 445 686 L 574 696 L 620 776 C 583 789, 548 785, 520 759 C 465 724, 414 723, 357 744 C 316 759, 273 750, 236 719 Z" }
+];
+
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
@@ -475,14 +492,36 @@ function drawCuteMap() {
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
   const tmuhPoint = project(tmuh);
   const origin = selectedDistrict ? project(selectedDistrict) : null;
-  const districtBlobs = districts.filter((district) => district.id !== "newtaipei").map((district) => {
-    const p = project(district);
+  const districtAreas = districtRegions.map((district, index) => {
     return `
-      <g class="district-blob">
-        <text x="${p.x}" y="${p.y + 5}">${escapeHtml(district.name.replace("區", ""))}</text>
+      <g class="district-region tone-${index % 4}">
+        <path d="${district.path}" />
       </g>
     `;
   }).join("");
+  const districtNames = districtRegions.map((district) => {
+    const [labelX, labelY] = district.label;
+    return `<text class="district-name" x="${labelX}" y="${labelY}">${escapeHtml(district.name)}</text>`;
+  }).join("");
+  const routePath = origin
+    ? `M ${origin.x} ${origin.y} C ${origin.x + (tmuhPoint.x - origin.x) * 0.32} ${origin.y - 56}, ${origin.x + (tmuhPoint.x - origin.x) * 0.72} ${tmuhPoint.y - 72}, ${tmuhPoint.x} ${tmuhPoint.y}`
+    : "";
+  const ambulanceRoute = origin ? `
+    <g class="tmuh-route-layer">
+      <path id="tmuhRoutePath" class="tmuh-route" d="${routePath}" />
+      <g class="ambulance-car">
+        <rect class="ambulance-body" x="-18" y="-9" width="27" height="16" rx="5" />
+        <rect class="ambulance-cab" x="3" y="-13" width="15" height="20" rx="5" />
+        <rect class="ambulance-window" x="8" y="-10" width="6" height="6" rx="2" />
+        <path class="ambulance-cross" d="M -8 -5 L -8 1 M -11 -2 L -5 -2" />
+        <circle class="ambulance-wheel" cx="-10" cy="8" r="3" />
+        <circle class="ambulance-wheel" cx="9" cy="8" r="3" />
+        <animateMotion dur="4.6s" repeatCount="indefinite" rotate="auto">
+          <mpath href="#tmuhRoutePath" />
+        </animateMotion>
+      </g>
+    </g>
+  ` : "";
 
   const hospitalNodes = hospitals.map((hospital) => {
     const p = project(hospital);
@@ -506,25 +545,20 @@ function drawCuteMap() {
         <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#9b8273" flood-opacity=".18" />
       </filter>
       <clipPath id="taipeiClip">
-        <path d="M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z" />
+        <path d="${taipeiShapePath}" />
       </clipPath>
     </defs>
     <rect class="map-paper" x="0" y="0" width="1000" height="860" rx="28" />
     <rect x="24" y="24" width="952" height="812" rx="24" fill="url(#softGrid)" opacity=".36" />
-    <path class="taipei-shape" d="M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z" />
-    <path class="river" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
-    <g class="district-boundaries" clip-path="url(#taipeiClip)">
-      <path d="M 361 112 C 334 184, 333 246, 291 317 C 250 387, 210 441, 170 524" />
-      <path d="M 482 112 C 456 197, 444 286, 413 370 C 391 431, 360 491, 301 584" />
-      <path d="M 614 138 C 587 220, 561 294, 526 363 C 490 435, 449 503, 399 602" />
-      <path d="M 731 166 C 690 234, 657 309, 634 392 C 609 486, 603 581, 571 742" />
-      <path d="M 254 348 C 344 368, 434 394, 520 429 C 613 466, 698 512, 842 562" />
-      <path d="M 151 525 C 246 503, 341 490, 442 486 C 550 482, 651 489, 812 477" />
-      <path d="M 218 673 C 302 612, 371 571, 467 544 C 577 513, 679 516, 820 540" />
-      <path d="M 734 318 C 784 355, 835 405, 888 478 C 926 530, 927 578, 895 632" />
-      <path d="M 322 246 C 413 278, 492 306, 572 337 C 653 369, 731 405, 850 458" />
+    <g clip-path="url(#taipeiClip)">
+      ${districtAreas}
     </g>
-    ${districtBlobs}
+    <path class="taipei-shape" d="${taipeiShapePath}" />
+    <path class="river" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
+    <g class="district-names">
+      ${districtNames}
+    </g>
+    ${ambulanceRoute}
     ${origin ? `<g class="origin-pin">
       <circle cx="${origin.x}" cy="${origin.y}" r="18" />
       <text x="${origin.x}" y="${origin.y + 5}">起</text>
@@ -543,7 +577,7 @@ function drawCuteMap() {
       <rect class="legend-box general" x="725" y="779" width="34" height="18" rx="6" />
       <text x="768" y="793">一般級急救責任醫院</text>
       <path class="legend-boundary" d="M 725 817 L 759 817" />
-      <text x="768" y="821">淡線：行政區邊界示意</text>
+      <text x="768" y="821">淡色區塊：行政區示意</text>
     </g>
     <path class="tmuh-spark" d="M ${tmuhPoint.x - 25} ${tmuhPoint.y - 25} L ${tmuhPoint.x - 13} ${tmuhPoint.y - 13} M ${tmuhPoint.x + 23} ${tmuhPoint.y - 20} L ${tmuhPoint.x + 12} ${tmuhPoint.y - 9} M ${tmuhPoint.x - 22} ${tmuhPoint.y + 24} L ${tmuhPoint.x - 10} ${tmuhPoint.y + 12}" />
   `;

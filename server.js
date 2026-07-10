@@ -130,7 +130,7 @@ async function fetchNominatim(query, timeoutMs = 3600) {
   try {
     const response = await fetch(`${geocodeApi}?${params}`, {
       headers: {
-        "User-Agent": "tmuh-er-cross-district-local-tool/0.1"
+        "User-Agent": "angry-sam-local-tool/0.1"
       },
       signal: controller.signal
     });
@@ -226,5 +226,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`反正都送北醫: http://127.0.0.1:${port}`);
+  console.log(`Angry Sam: http://127.0.0.1:${port}`);
 });

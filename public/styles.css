@@ -464,22 +464,40 @@ button:disabled {
 }
 
 .taipei-shape {
-  fill: #e8f5dd;
-  opacity: 0.86;
+  fill: none;
   stroke: #6fa46a;
   stroke-linejoin: round;
   stroke-width: 5;
 }
 
-.district-blob {
-  opacity: 0.95;
+.district-region path {
+  fill: #eaf6df;
+  opacity: 0.92;
+  stroke: rgba(101, 148, 92, 0.32);
+  stroke-linejoin: round;
+  stroke-width: 2.2;
 }
 
-.district-blob text {
-  fill: rgba(61, 74, 71, 0.42);
-  font-size: 20px;
+.district-region.tone-1 path {
+  fill: #edf7ea;
+}
+
+.district-region.tone-2 path {
+  fill: #e3f3df;
+}
+
+.district-region.tone-3 path {
+  fill: #f0f8e5;
+}
+
+.district-name {
+  fill: rgba(61, 74, 71, 0.36);
+  font-size: 19px;
   font-weight: 900;
+  paint-order: stroke;
   pointer-events: none;
+  stroke: rgba(255, 249, 239, 0.62);
+  stroke-width: 4px;
   text-anchor: middle;
 }
 
@@ -490,12 +508,43 @@ button:disabled {
   stroke-width: 34;
 }
 
-.district-boundaries path {
+.tmuh-route {
   fill: none;
-  opacity: 0.38;
-  stroke: #8fb084;
+  opacity: 0.82;
+  stroke: #2b2f3a;
+  stroke-dasharray: 9 9;
   stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.tmuh-route-layer {
+  pointer-events: none;
+}
+
+.ambulance-car {
+  filter: drop-shadow(0 3px 3px rgba(43, 47, 58, 0.22));
+}
+
+.ambulance-body,
+.ambulance-cab {
+  fill: #fffdf7;
+  stroke: #2b2f3a;
   stroke-width: 2;
+}
+
+.ambulance-window {
+  fill: #a9d6ed;
+}
+
+.ambulance-cross {
+  fill: none;
+  stroke: #e75d4b;
+  stroke-linecap: round;
+  stroke-width: 2.4;
+}
+
+.ambulance-wheel {
+  fill: #2b2f3a;
 }
 
 .origin-pin circle {
