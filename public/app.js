@@ -258,7 +258,7 @@ let erStatus = new Map();
 let selectedDistrict = null;
 let selectedCapability = "all";
 let routeMetrics = new Map();
-let routeMode = "道路車程";
+let routeMode = "不含即時路況";
 let suggestionTimer;
 const sameOriginApiAvailable = shouldUseSameOriginApi();
 
@@ -312,7 +312,7 @@ const labelSlots = {
   renai: [398, 618],
   ntuh: [300, 575],
   ho_ping: [218, 592],
-  west_garden: [150, 620],
+  west_garden: [220, 632],
   tmuh: [505, 635],
   zhongxiao: [650, 570],
   wanfang: [440, 716]
@@ -439,7 +439,7 @@ function metricFor(hospital) {
 function timeText(metric) {
   if (!metric) return "-";
   const minutes = Math.max(1, Math.round(metric.duration));
-  return `${minutes} 分`;
+  return `約 ${minutes} 分`;
 }
 
 function distanceText(metric) {
@@ -610,7 +610,7 @@ function drawCuteMap() {
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
   const [tmuhLabelX, tmuhLabelY] = labelSlots[tmuhId];
   const tmuhLabelWidth = mapLabelWidth(tmuh);
-  const tmuhVisualTarget = { x: tmuhLabelX + tmuhLabelWidth + 25, y: tmuhLabelY - 8 };
+  const tmuhVisualTarget = { x: tmuhLabelX + tmuhLabelWidth / 2, y: tmuhLabelY - 40 };
   const origin = selectedDistrict ? project(selectedDistrict) : null;
   const districtAreas = districtRegions.map((district, index) => {
     return `
@@ -677,10 +677,6 @@ function drawCuteMap() {
     </g>
     <path class="river" clip-path="url(#taipeiClip)" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
     ${hospitalNodes}
-    ${origin ? `<g class="tmuh-destination">
-      <circle cx="${tmuhVisualTarget.x}" cy="${tmuhVisualTarget.y}" r="7" />
-      <path d="M ${tmuhVisualTarget.x - 8} ${tmuhVisualTarget.y} L ${tmuhLabelX + tmuhLabelWidth + 5} ${tmuhLabelY - 8}" />
-    </g>` : ""}
     ${ambulanceRoute}
     ${origin ? `<g class="origin-pin">
       <circle cx="${origin.x}" cy="${origin.y}" r="18" />
@@ -780,7 +776,7 @@ function renderAll() {
 async function updateRoutes() {
   if (!selectedDistrict) {
     routeMetrics = new Map();
-    routeMode = "道路車程";
+    routeMode = "不含即時路況";
     renderAll();
     return;
   }
@@ -834,7 +830,7 @@ async function updateRoutes() {
         routeMetrics.set(destination.id, fallbackRouteMetric(hospital));
       }
     });
-    routeMode = "OSRM 車程估算";
+    routeMode = "OSRM 順暢估算";
   } catch (error) {
     routeMetrics = new Map(hospitals.map((hospital) => [hospital.id, fallbackRouteMetric(hospital)]));
     routeMode = "直線距離換算";

@@ -515,23 +515,6 @@ button:disabled {
   pointer-events: none;
 }
 
-.tmuh-destination {
-  pointer-events: none;
-}
-
-.tmuh-destination circle {
-  fill: #ffd765;
-  stroke: #2b2f3a;
-  stroke-width: 3;
-}
-
-.tmuh-destination path {
-  fill: none;
-  stroke: #2b2f3a;
-  stroke-linecap: round;
-  stroke-width: 2;
-}
-
 .ambulance-car {
   filter: drop-shadow(0 3px 3px rgba(43, 47, 58, 0.28));
 }
