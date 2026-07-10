@@ -217,44 +217,24 @@ button:disabled {
 }
 
 .verdict {
-  display: grid;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.verdict-card {
-  background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 14px;
+  font-size: 18px;
+  font-weight: 950;
+  margin-top: 16px;
+  padding: 12px 14px;
 }
 
-.verdict-card.alert {
+.verdict.alert {
   background: #fff1e8;
   border-color: #efb99a;
+  color: #a94525;
 }
 
-.verdict-card.ok {
+.verdict.ok {
   background: #ecf8ee;
   border-color: #b9dfbd;
-}
-
-.verdict-card.neutral {
-  background: #f6f7f9;
-  border-color: #d6dde4;
-}
-
-.verdict-card strong {
-  display: block;
-  font-size: 22px;
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-
-.verdict-card .sub {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.55;
+  color: #23703a;
 }
 
 .section-title {
@@ -601,10 +581,6 @@ button:disabled {
   text-anchor: start;
 }
 
-.map-hospital {
-  cursor: pointer;
-}
-
 .map-label rect {
   fill: var(--general);
   stroke: rgba(255, 255, 255, 0.9);
@@ -622,12 +598,6 @@ button:disabled {
 .map-hospital.tmuh .map-label rect {
   fill: var(--tmuh);
   stroke: #ffe28a;
-  stroke-width: 3;
-}
-
-.map-hospital:hover .map-label rect {
-  filter: brightness(0.95);
-  stroke: #2b2f3a;
   stroke-width: 3;
 }
 

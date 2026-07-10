@@ -268,7 +268,6 @@ const capabilitySelect = document.querySelector("#capabilitySelect");
 const verdict = document.querySelector("#verdict");
 const nearestList = document.querySelector("#nearestList");
 const hospitalCards = document.querySelector("#hospitalCards");
-const tmuhRank = document.querySelector("#tmuhRank");
 const livePill = document.querySelector("#livePill");
 const refreshButton = document.querySelector("#refreshButton");
 const cuteMap = document.querySelector("#cuteMap");
@@ -336,14 +335,14 @@ const districtRegions = [
 
 const districtLabelSlots = {
   "北投": [395, 225],
-  "士林": [445, 365],
+  "士林": [445, 330],
   "內湖": [675, 420],
   "大同": [315, 470],
   "中山": [420, 445],
   "松山": [500, 475],
   "南港": [785, 585],
   "萬華": [235, 550],
-  "中正": [330, 610],
+  "中正": [340, 610],
   "大安": [450, 648],
   "信義": [555, 550],
   "文山": [575, 735]
@@ -497,6 +496,13 @@ function mapLabel(hospital) {
   return labels[hospital.id] || hospital.shortName || hospital.name;
 }
 
+function mapLabelWidth(hospital) {
+  const length = Array.from(mapLabel(hospital)).length;
+  if (length <= 2) return 52;
+  if (length === 3) return 68;
+  return 86;
+}
+
 function sortedByTravel() {
   if (!selectedDistrict) return [];
   return filteredHospitals()
@@ -513,15 +519,12 @@ function routeDeltaText(baseMetric, compareMetric) {
 }
 
 function routeObstacles() {
-  const hospitalBoxes = Object.values(labelSlots)
-    .map(([x, y]) => ({ left: x - 12, right: x + 98, top: y - 34, bottom: y + 18 }));
-  const districtBoxes = districtRegions.map((district) => {
-    const [x, y] = districtLabelPosition(district);
-    return { left: x - 40, right: x + 40, top: y - 22, bottom: y + 18 };
+  const hospitalBoxes = hospitals.map((hospital) => {
+    const [x, y] = labelSlots[hospital.id];
+    return { left: x - 12, right: x + mapLabelWidth(hospital) + 12, top: y - 34, bottom: y + 18 };
   });
   return [
     ...hospitalBoxes,
-    ...districtBoxes,
     { left: 630, right: 904, top: 654, bottom: 840 }
   ];
 }
@@ -606,7 +609,8 @@ function routePathData(points) {
 function drawCuteMap() {
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
   const [tmuhLabelX, tmuhLabelY] = labelSlots[tmuhId];
-  const tmuhVisualTarget = { x: tmuhLabelX + 111, y: tmuhLabelY - 8 };
+  const tmuhLabelWidth = mapLabelWidth(tmuh);
+  const tmuhVisualTarget = { x: tmuhLabelX + tmuhLabelWidth + 25, y: tmuhLabelY - 8 };
   const origin = selectedDistrict ? project(selectedDistrict) : null;
   const districtAreas = districtRegions.map((district, index) => {
     return `
@@ -642,11 +646,13 @@ function drawCuteMap() {
   const hospitalNodes = hospitals.map((hospital) => {
     const p = project(hospital);
     const [labelX, labelY] = labelSlots[hospital.id] || [p.x + 16, p.y - 16];
+    const label = mapLabel(hospital);
+    const labelWidth = mapLabelWidth(hospital);
     return `
-      <g class="map-hospital ${levelClass[hospital.level] || "general"} ${hospital.id === tmuhId ? "tmuh" : ""}" data-id="${hospital.id}">
+      <g class="map-hospital ${levelClass[hospital.level] || "general"} ${hospital.id === tmuhId ? "tmuh" : ""}">
         <g class="map-label">
-          <rect x="${labelX}" y="${labelY - 22}" width="86" height="28" rx="8" />
-          <text class="map-name" x="${labelX + 43}" y="${labelY - 3}">${escapeHtml(mapLabel(hospital))}</text>
+          <rect x="${labelX}" y="${labelY - 22}" width="${labelWidth}" height="28" rx="8" />
+          <text class="map-name" x="${labelX + labelWidth / 2}" y="${labelY - 3}">${escapeHtml(label)}</text>
         </g>
       </g>
     `;
@@ -673,7 +679,7 @@ function drawCuteMap() {
     ${hospitalNodes}
     ${origin ? `<g class="tmuh-destination">
       <circle cx="${tmuhVisualTarget.x}" cy="${tmuhVisualTarget.y}" r="7" />
-      <path d="M ${tmuhVisualTarget.x - 8} ${tmuhVisualTarget.y} L ${tmuhLabelX + 91} ${tmuhLabelY - 8}" />
+      <path d="M ${tmuhVisualTarget.x - 8} ${tmuhVisualTarget.y} L ${tmuhLabelX + tmuhLabelWidth + 5} ${tmuhLabelY - 8}" />
     </g>` : ""}
     ${ambulanceRoute}
     ${origin ? `<g class="origin-pin">
@@ -700,83 +706,22 @@ function drawCuteMap() {
     </g>
   `;
 
-  cuteMap.querySelectorAll(".map-hospital").forEach((node) => {
-    node.addEventListener("click", () => {
-      const hospital = hospitals.find((item) => item.id === node.dataset.id);
-      if (!hospital) return;
-      selectedCapability = selectedCapability;
-      showHospitalToast(hospital);
-    });
-  });
-}
-
-function showHospitalToast(hospital) {
-  const status = erStatus.get(hospital.id);
-  const metric = metricFor(hospital);
-  verdict.innerHTML = `
-    <div class="verdict-card">
-      <strong>${escapeHtml(hospital.shortName || hospital.name)}</strong>
-      <p class="sub">${escapeHtml(hospital.district)} | ${hospital.level}${metric ? ` | ${timeText(metric)} / ${distanceText(metric)}` : ""}${status ? ` | 候診 ${status.waitSee ?? "-"}、等住院 ${status.waitAdmit ?? "-"}、等 ICU ${status.waitIcu ?? "-"}` : " | 目前沒有即時急診資料"}</p>
-    </div>
-  `;
 }
 
 function renderVerdict() {
   mapFocus.textContent = selectedDistrict ? `${selectedDistrict.name} → 北醫附醫` : "等待地址";
   routeSource.textContent = routeMode;
-  if (!selectedDistrict) {
-    tmuhRank.textContent = "";
-    verdict.innerHTML = `
-      <div class="verdict-card quiet">
-        <strong>先輸入EMT接觸地點</strong>
-        <p class="sub">選定候選地址後，這裡會直接判讀送北醫是否疑似跨區，並把更近的急診醫院排在下面。</p>
-      </div>
-    `;
+  const originDistrict = selectedDistrict?.district || (selectedDistrict?.name?.endsWith("區") ? selectedDistrict.name : "");
+  if (!originDistrict) {
+    verdict.hidden = true;
+    verdict.textContent = "";
+    verdict.className = "verdict";
     return;
   }
-  const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
-  const allRanks = hospitals
-    .map((hospital) => ({ hospital, metric: metricFor(hospital) }))
-    .sort((a, b) => a.metric.duration - b.metric.duration || a.metric.distance - b.metric.distance);
-  const ranked = sortedByTravel();
-  const tmuhGlobal = allRanks.findIndex((item) => item.hospital.id === tmuhId) + 1;
-  const tmuhFiltered = ranked.findIndex((item) => item.hospital.id === tmuhId) + 1;
-  const tmuhMetric = metricFor(tmuh);
-  const originDistrict = selectedDistrict.district || (selectedDistrict.name?.endsWith("區") ? selectedDistrict.name : "");
-  const sameDistrict = originDistrict ? originDistrict === tmuhDistrict : false;
-  const nearest = ranked[0]?.hospital;
-  const capLabel = selectedCapability === "all" ? "不限特殊能力" : `${capabilityLabels[selectedCapability]}能力`;
-  const capabilityNote = selectedCapability === "all"
-    ? `以全部急診責任醫院排序，北醫為第 ${tmuhGlobal} 近。`
-    : (tmuhFiltered > 0 ? `在具 ${capLabel} 的醫院中，北醫為第 ${tmuhFiltered} 近。` : `北醫未被標示為具 ${capLabel}。`);
-  const nearerHospitals = allRanks
-    .filter((item) => item.hospital.id !== tmuhId && item.metric.duration < tmuhMetric.duration - 1)
-    .slice(0, 3);
-  const sameDistrictHospitals = originDistrict
-    ? allRanks.filter((item) => item.hospital.district === originDistrict && item.hospital.id !== tmuhId).slice(0, 3)
-    : [];
-  const verdictClass = !originDistrict ? "neutral" : (sameDistrict ? "ok" : "alert");
-  const verdictTitle = !originDistrict
-    ? "行政區待確認"
-    : (sameDistrict ? "信義區內送北醫" : "疑似跨區送北醫");
-  const districtText = originDistrict
-    ? `案發行政區：${originDistrict}；北醫所在行政區：${tmuhDistrict}。`
-    : "目前地址結果沒有明確行政區，請用候選清單中較完整的地址。";
-  const nearerText = nearerHospitals.length
-    ? `較快急診：${nearerHospitals.map(({ hospital, metric }) => `${hospital.shortName || hospital.name} ${timeText(metric)}`).join("、")}。`
-    : "北醫已是目前條件下最快或相近的急診之一。";
-  const sameDistrictText = sameDistrictHospitals.length
-    ? `同區急診：${sameDistrictHospitals.map(({ hospital, metric }) => `${hospital.shortName || hospital.name} ${timeText(metric)}`).join("、")}。`
-    : "";
-
-  tmuhRank.textContent = capabilityNote;
-  verdict.innerHTML = `
-    <div class="verdict-card ${verdictClass}">
-      <strong>${verdictTitle}</strong>
-      <p class="sub">${districtText} 送北醫估 ${timeText(tmuhMetric)}、${distanceText(tmuhMetric)}；${capabilityNote}</p>
-      <p class="sub">${nearerText}${sameDistrictText ? ` ${sameDistrictText}` : ""}</p>
-    </div>
-  `;
+  const isCrossDistrict = originDistrict !== tmuhDistrict;
+  verdict.hidden = false;
+  verdict.className = `verdict ${isCrossDistrict ? "alert" : "ok"}`;
+  verdict.textContent = isCrossDistrict ? "疑似跨區" : "無跨區";
 }
 
 function renderNearest() {
@@ -785,13 +730,17 @@ function renderNearest() {
     return;
   }
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
-  const items = sortedByTravel().slice(0, 8);
-  nearestList.innerHTML = items.map((item, index) => {
+  const rankedItems = sortedByTravel();
+  const items = rankedItems.slice(0, 8);
+  const tmuhItem = rankedItems.find((item) => item.hospital.id === tmuhId);
+  if (tmuhItem && !items.some((item) => item.hospital.id === tmuhId)) items.push(tmuhItem);
+  nearestList.innerHTML = items.map((item) => {
     const hospital = item.hospital;
     const status = erStatus.get(hospital.id);
+    const rank = rankedItems.indexOf(item) + 1;
     return `
       <article class="nearest-item">
-        <span class="rank">${index + 1}</span>
+        <span class="rank">${rank}</span>
         <div>
           <div class="name-line">${escapeHtml(hospital.shortName || hospital.name)} ${levelBadge(hospital.level)}</div>
           <div class="meta">${escapeHtml(hospital.district)}${hospital.id === tmuhId ? " | 送達目標" : ""} | ${routeDeltaText(metricFor(tmuh), item.metric)} | ${liveBadge(status)}</div>
