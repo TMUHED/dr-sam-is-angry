@@ -299,21 +299,21 @@ const mapFrame = {
 
 const labelSlots = {
   cheng_hsin: [250, 340],
-  vghtpe: [340, 322],
-  shin_kong: [235, 430],
+  vghtpe: [330, 311],
+  shin_kong: [260, 425],
   yangming: [365, 390],
   tri_service: [650, 470],
-  zhongxing: [250, 514],
+  zhongxing: [289, 514],
   mackay: [342, 492],
-  pojen: [508, 508],
-  tri_songshan: [598, 526],
-  tai_an: [420, 524],
-  cathay: [508, 590],
+  pojen: [488, 504],
+  tri_songshan: [468, 534],
+  tai_an: [438, 504],
+  cathay: [430, 586],
   renai: [398, 618],
-  ntuh: [300, 575],
-  ho_ping: [218, 592],
+  ntuh: [315, 570],
+  ho_ping: [300, 600],
   west_garden: [230, 620],
-  tmuh: [505, 635],
+  tmuh: [504, 633],
   zhongxiao: [650, 570],
   wanfang: [440, 716]
 };
@@ -337,14 +337,14 @@ const districtLabelSlots = {
   "北投": [395, 225],
   "士林": [445, 330],
   "內湖": [675, 420],
-  "大同": [315, 470],
+  "大同": [310, 460],
   "中山": [420, 445],
-  "松山": [500, 475],
+  "松山": [470, 472],
   "南港": [785, 585],
-  "萬華": [235, 550],
-  "中正": [340, 610],
+  "萬華": [250, 581],
+  "中正": [350, 635],
   "大安": [450, 648],
-  "信義": [555, 550],
+  "信義": [570, 580],
   "文山": [575, 735]
 };
 
@@ -475,9 +475,9 @@ function liveBadge(status) {
 function mapLabel(hospital) {
   const labels = {
     ntuh: "臺大",
-    ho_ping: "聯醫和平",
+    ho_ping: "和平",
     west_garden: "西園",
-    zhongxing: "聯醫中興",
+    zhongxing: "中興",
     cheng_hsin: "振興",
     vghtpe: "北榮",
     pojen: "博仁",
@@ -486,11 +486,11 @@ function mapLabel(hospital) {
     tmuh: "北醫附醫",
     mackay: "馬偕",
     wanfang: "萬芳",
-    zhongxiao: "聯醫忠孝",
-    renai: "聯醫仁愛",
+    zhongxiao: "忠孝",
+    renai: "仁愛",
     cathay: "國泰",
     shin_kong: "新光",
-    yangming: "聯醫陽明",
+    yangming: "陽明",
     tri_service: "三總"
   };
   return labels[hospital.id] || hospital.shortName || hospital.name;
@@ -499,7 +499,8 @@ function mapLabel(hospital) {
 function mapLabelWidth(hospital) {
   const length = Array.from(mapLabel(hospital)).length;
   if (length <= 2) return 46;
-  if (length === 3) return 68;
+  if (length === 3) return 58;
+  if (length === 4) return 66;
   return 86;
 }
 
