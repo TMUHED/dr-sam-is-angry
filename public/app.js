@@ -312,7 +312,7 @@ const labelSlots = {
   renai: [398, 618],
   ntuh: [300, 575],
   ho_ping: [218, 592],
-  west_garden: [220, 632],
+  west_garden: [230, 620],
   tmuh: [505, 635],
   zhongxiao: [650, 570],
   wanfang: [440, 716]
@@ -498,7 +498,7 @@ function mapLabel(hospital) {
 
 function mapLabelWidth(hospital) {
   const length = Array.from(mapLabel(hospital)).length;
-  if (length <= 2) return 52;
+  if (length <= 2) return 46;
   if (length === 3) return 68;
   return 86;
 }
