@@ -1,0 +1,10 @@
+{
+  "name": "tmuh-er-cross-district",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch:er-status": "node scripts/fetch-er-status.js",
+    "start": "node server.js"
+  }
+}

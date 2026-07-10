@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>反正都送北醫</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316212c'/%3E%3Cpath d='M15 7h2v18h-2zM7 15h18v2H7z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Dr.Sam is Angry</p>
+            <h1>反正都送北醫</h1>
+          </div>
+          <div class="live-pill" id="livePill">讀取即時急診</div>
+        </header>
+
+        <section class="query">
+          <div class="address-field">
+            <label for="addressInput">
+              <span>EMT接觸地點或案發地址</span>
+            </label>
+            <div class="search-row">
+              <input id="addressInput" autocomplete="off" placeholder="輸入完整地址、路名門牌或地標" />
+            </div>
+            <div id="suggestions" class="suggestions" hidden></div>
+          </div>
+          <label>
+            <span>急症需求</span>
+            <select id="capabilitySelect">
+              <option value="all">不限</option>
+              <option value="chemical">化學災害</option>
+              <option value="radiation">輻射災害</option>
+              <option value="psychiatry">精神科</option>
+              <option value="pediatric">小兒加護/兒科量能</option>
+              <option value="obstetric">產科/高危險妊娠</option>
+              <option value="ecmo">ECMO</option>
+            </select>
+          </label>
+          <button id="refreshButton" type="button">更新即時資料</button>
+        </section>
+
+        <section class="verdict" id="verdict"></section>
+
+        <section class="nearest">
+          <div class="section-title">
+            <h2>各急診車程</h2>
+            <span id="tmuhRank"></span>
+          </div>
+          <div id="nearestList" class="nearest-list"></div>
+        </section>
+
+        <section class="table-wrap">
+          <details id="hospitalDirectory">
+            <summary>
+              <span>臺北市急診醫院名冊</span>
+              <small>點開查看等級、特殊能力與即時急診</small>
+            </summary>
+            <div id="hospitalCards" class="hospital-cards"></div>
+          </details>
+        </section>
+
+        <section class="source-box">
+          <strong>資料來源</strong>
+          <a href="https://health.gov.taipei/News_Content.aspx?n=7B09AD7CC1196533&s=7F2A1A8B955497E7&sms=EF332BC69D752D57" target="_blank" rel="noreferrer">臺北市急救責任醫院名冊</a>
+          <a href="https://www-ws.gov.taipei/Download.ashx?icon=.pdf&n=6ZmE5Lu2MS0xMTXlubTmgKXmlZHosqzku7vphqvpmaLlsIjnp5HomZXnva7og73lipvnuL3ooago5LiK5Y2K5bm0KS0wNjEx5pu05pawLnBkZg%3D%3D&u=LzAwMS9VcGxvYWQvNjg0L3JlbGZpbGUvNDcyNjIvODUxMTg5NC81YzAyNzU0Yy1jZjRjLTQ4MjgtYjI2MS02NjQwOGM0MzljYzgucGRm" target="_blank" rel="noreferrer">急重症專科處置能力表</a>
+          <a href="https://info.nhi.gov.tw/INAE4000/INAE4010S01" target="_blank" rel="noreferrer">健保署急診即時訊息</a>
+        </section>
+      </section>
+
+      <section class="map-wrap">
+        <div class="map-title">
+          <div>
+            <p>Dr.Sam is Angry</p>
+            <strong id="mapFocus">輸入地址後計算</strong>
+          </div>
+          <span id="routeSource">車程估算中</span>
+        </div>
+        <svg id="cuteMap" viewBox="0 0 1000 860" role="img" aria-label="臺北市急診醫院示意地圖"></svg>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

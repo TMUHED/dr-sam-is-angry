@@ -1,0 +1,917 @@
+const tmuhId = "tmuh";
+const tmuhDistrict = "信義區";
+
+const districts = [
+  { id: "xinyi", name: "信義區", lat: 25.033, lng: 121.566 },
+  { id: "daan", name: "大安區", lat: 25.026, lng: 121.543 },
+  { id: "songshan", name: "松山區", lat: 25.053, lng: 121.563 },
+  { id: "nangang", name: "南港區", lat: 25.032, lng: 121.607 },
+  { id: "wenshan", name: "文山區", lat: 24.989, lng: 121.569 },
+  { id: "zhongzheng", name: "中正區", lat: 25.035, lng: 121.519 },
+  { id: "wanhua", name: "萬華區", lat: 25.033, lng: 121.497 },
+  { id: "datong", name: "大同區", lat: 25.063, lng: 121.513 },
+  { id: "zhongshan", name: "中山區", lat: 25.064, lng: 121.533 },
+  { id: "neihu", name: "內湖區", lat: 25.083, lng: 121.592 },
+  { id: "shilin", name: "士林區", lat: 25.096, lng: 121.525 },
+  { id: "beitou", name: "北投區", lat: 25.132, lng: 121.501 },
+  { id: "newtaipei", name: "新北市/其他縣市", lat: 25.017, lng: 121.463 }
+];
+
+const hospitals = [
+  {
+    id: "ntuh",
+    name: "臺大醫院",
+    aliases: ["臺大", "台大"],
+    district: "中正區",
+    address: "臺北市中正區中山南路7號",
+    lat: 25.0408,
+    lng: 121.5189,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "full", radiation: "full", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" },
+    notes: { hyperbaric: "高壓氧艙為部分時段/限制條件" }
+  },
+  {
+    id: "ho_ping",
+    name: "聯合醫院和平院區",
+    aliases: ["和平", "北市聯醫"],
+    district: "中正區",
+    address: "臺北市中正區中華路2段33號",
+    lat: 25.0358,
+    lng: 121.5065,
+    level: "中度級",
+    validUntil: "115/12/31",
+    capabilities: { chemical: "full", radiation: "none", psychiatry: "none", pediatric: "none", obstetric: "none", ecmo: "none" }
+  },
+  {
+    id: "west_garden",
+    name: "西園醫院",
+    aliases: ["西園"],
+    district: "萬華區",
+    address: "臺北市萬華區西園路2段276號",
+    lat: 25.0279,
+    lng: 121.4962,
+    level: "一般級",
+    validUntil: "未列效期",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "none", obstetric: "none", ecmo: "none" }
+  },
+  {
+    id: "zhongxing",
+    name: "聯合醫院中興院區",
+    aliases: ["中興", "北市聯醫"],
+    district: "大同區",
+    address: "臺北市大同區鄭州路145號",
+    lat: 25.0505,
+    lng: 121.5154,
+    level: "中度級",
+    validUntil: "120/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "partial", obstetric: "none", ecmo: "none" }
+  },
+  {
+    id: "cheng_hsin",
+    name: "振興醫院",
+    aliases: ["振興"],
+    district: "北投區",
+    address: "臺北市北投區振興街45號",
+    lat: 25.1172,
+    lng: 121.5222,
+    level: "重度級",
+    validUntil: "120/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "full", pediatric: "partial", obstetric: "full", ecmo: "full" },
+    notes: { hyperbaric: "高壓氧艙為部分時段/限制條件" }
+  },
+  {
+    id: "vghtpe",
+    name: "臺北榮民總醫院",
+    aliases: ["北榮", "臺北榮總", "台北榮總"],
+    district: "北投區",
+    address: "臺北市北投區石牌路2段201號",
+    lat: 25.1207,
+    lng: 121.5204,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "full", radiation: "full", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" }
+  },
+  {
+    id: "pojen",
+    name: "博仁綜合醫院",
+    aliases: ["博仁"],
+    district: "松山區",
+    address: "臺北市松山區光復北路66號",
+    lat: 25.0508,
+    lng: 121.5576,
+    level: "一般級",
+    validUntil: "未列效期",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "none", obstetric: "none", ecmo: "none" }
+  },
+  {
+    id: "tri_songshan",
+    name: "三軍總醫院松山分院",
+    aliases: ["三軍總醫院松山", "三總松山"],
+    district: "松山區",
+    address: "臺北市松山區健康路131號",
+    lat: 25.0545,
+    lng: 121.5572,
+    level: "中度級",
+    validUntil: "115/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "partial", pediatric: "partial", obstetric: "partial", ecmo: "none" },
+    notes: { psychiatry: "精神科不具強制住院服務，且為部分時段" }
+  },
+  {
+    id: "tai_an",
+    name: "臺安醫院",
+    aliases: ["臺安", "台安"],
+    district: "松山區",
+    address: "臺北市松山區八德路二段424號",
+    lat: 25.0483,
+    lng: 121.546,
+    level: "中度級",
+    validUntil: "119/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "full", obstetric: "full", ecmo: "none" }
+  },
+  {
+    id: "tmuh",
+    name: "臺北醫學大學附設醫院",
+    shortName: "北醫附醫",
+    aliases: ["北醫", "臺北醫學大學附設醫院"],
+    district: "信義區",
+    address: "臺北市信義區吳興街252號",
+    lat: 25.0269,
+    lng: 121.5622,
+    level: "重度級",
+    validUntil: "120/12/31",
+    capabilities: { chemical: "partial", radiation: "none", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" },
+    notes: { chemical: "化學災害欄位為部分/限制能力標示" }
+  },
+  {
+    id: "mackay",
+    name: "馬偕紀念醫院",
+    aliases: ["台北馬偕", "馬偕"],
+    district: "中山區",
+    address: "臺北市中山區中山北路二段92號",
+    lat: 25.0579,
+    lng: 121.5225,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "full", radiation: "partial", psychiatry: "partial", pediatric: "full", obstetric: "full", ecmo: "full" },
+    notes: { psychiatry: "精神科床位註記位於淡水馬偕", radiation: "輻災床位註記位於淡水馬偕" }
+  },
+  {
+    id: "wanfang",
+    name: "臺北市立萬芳醫院",
+    aliases: ["萬芳"],
+    district: "文山區",
+    address: "臺北市文山區興隆路3段111號",
+    lat: 24.9994,
+    lng: 121.5585,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "full", radiation: "none", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" }
+  },
+  {
+    id: "zhongxiao",
+    name: "聯合醫院忠孝院區",
+    aliases: ["忠孝", "聯醫忠孝"],
+    district: "南港區",
+    address: "臺北市南港區同德路87號",
+    lat: 25.0453,
+    lng: 121.5864,
+    level: "中度級",
+    validUntil: "119/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "partial", obstetric: "none", ecmo: "none" }
+  },
+  {
+    id: "renai",
+    name: "聯合醫院仁愛院區",
+    aliases: ["聯醫仁愛", "仁愛"],
+    district: "大安區",
+    address: "臺北市大安區仁愛路4段10號",
+    lat: 25.0379,
+    lng: 121.5435,
+    level: "重度級",
+    validUntil: "115/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "full", obstetric: "full", ecmo: "full" }
+  },
+  {
+    id: "cathay",
+    name: "國泰綜合醫院",
+    aliases: ["台北國泰", "國泰"],
+    district: "大安區",
+    address: "臺北市大安區仁愛路4段266巷6號",
+    lat: 25.0377,
+    lng: 121.5551,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "full", obstetric: "full", ecmo: "full" }
+  },
+  {
+    id: "shin_kong",
+    name: "新光吳火獅紀念醫院",
+    aliases: ["新光"],
+    district: "士林區",
+    address: "臺北市士林區文昌路95號",
+    lat: 25.0964,
+    lng: 121.5206,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" },
+    notes: { hyperbaric: "高壓氧艙為部分時段/限制條件" }
+  },
+  {
+    id: "yangming",
+    name: "聯合醫院陽明院區",
+    aliases: ["陽明", "聯醫陽明"],
+    district: "士林區",
+    address: "臺北市士林區雨聲街105號",
+    lat: 25.1051,
+    lng: 121.5317,
+    level: "中度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "none", radiation: "none", psychiatry: "none", pediatric: "full", obstetric: "partial", ecmo: "none" }
+  },
+  {
+    id: "tri_service",
+    name: "三軍總醫院",
+    aliases: ["三總", "三軍總醫院"],
+    district: "內湖區",
+    address: "臺北市內湖區成功路2段325號",
+    lat: 25.0719,
+    lng: 121.5906,
+    level: "重度級",
+    validUntil: "118/12/31",
+    capabilities: { chemical: "full", radiation: "full", psychiatry: "full", pediatric: "full", obstetric: "full", ecmo: "full" }
+  }
+];
+
+const levelClass = { "重度級": "severe", "中度級": "moderate", "一般級": "general" };
+const capabilityLabels = {
+  chemical: "化災",
+  radiation: "輻災",
+  psychiatry: "精神",
+  pediatric: "兒科",
+  obstetric: "產科",
+  ecmo: "ECMO"
+};
+const capabilityText = { full: "完整", partial: "部分", none: "未標示" };
+
+let erStatus = new Map();
+let selectedDistrict = null;
+let selectedCapability = "all";
+let routeMetrics = new Map();
+let routeMode = "輸入地址後估算";
+let suggestionTimer;
+const sameOriginApiAvailable = shouldUseSameOriginApi();
+
+const addressInput = document.querySelector("#addressInput");
+const suggestions = document.querySelector("#suggestions");
+const capabilitySelect = document.querySelector("#capabilitySelect");
+const verdict = document.querySelector("#verdict");
+const nearestList = document.querySelector("#nearestList");
+const hospitalCards = document.querySelector("#hospitalCards");
+const tmuhRank = document.querySelector("#tmuhRank");
+const livePill = document.querySelector("#livePill");
+const refreshButton = document.querySelector("#refreshButton");
+const cuteMap = document.querySelector("#cuteMap");
+const mapFocus = document.querySelector("#mapFocus");
+const routeSource = document.querySelector("#routeSource");
+
+function shouldUseSameOriginApi() {
+  const host = window.location.hostname;
+  const staticHosts = ["github.io", "pages.dev", "netlify.app"];
+  if (window.location.protocol === "file:") return false;
+  if (staticHosts.some((suffix) => host.endsWith(suffix))) return false;
+  if ((host === "127.0.0.1" || host === "localhost") && window.location.port !== "5177") return false;
+  return true;
+}
+
+const bounds = {
+  minLat: 24.985,
+  maxLat: 25.135,
+  minLng: 121.49,
+  maxLng: 121.615
+};
+
+const labelSlots = {
+  cheng_hsin: [205, 122],
+  vghtpe: [360, 108],
+  shin_kong: [145, 245],
+  yangming: [270, 245],
+  tri_service: [760, 255],
+  zhongxing: [255, 355],
+  mackay: [384, 326],
+  pojen: [612, 350],
+  tri_songshan: [768, 370],
+  tai_an: [560, 438],
+  cathay: [655, 482],
+  renai: [470, 492],
+  ntuh: [362, 532],
+  ho_ping: [242, 566],
+  west_garden: [142, 606],
+  tmuh: [725, 555],
+  zhongxiao: [860, 520],
+  wanfang: [595, 696]
+};
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function normalizeName(name) {
+  return String(name || "")
+    .replace(/[臺台]/g, "台")
+    .replace(/附設民眾診療服務處/g, "")
+    .replace(/臺北市立|台北市立|醫療財團法人|財團法人|委託.*辦理/g, "")
+    .replace(/[（）()\s－-]/g, "")
+    .replace(/綜合醫院|紀念醫院|醫院/g, "");
+}
+
+function matchHospital(liveName) {
+  const live = normalizeName(liveName);
+  const candidates = hospitals
+    .map((hospital) => ({
+      hospital,
+      names: [hospital.name, hospital.shortName, ...(hospital.aliases || [])]
+        .filter(Boolean)
+        .map((name) => normalizeName(name))
+        .filter((name) => name.length >= 2)
+        .sort((a, b) => b.length - a.length)
+    }))
+    .sort((a, b) => (b.names[0]?.length || 0) - (a.names[0]?.length || 0));
+
+  return candidates.find(({ names }) => {
+    return names.some((name) => {
+      if (live === name) return true;
+      if (name.length < 3 || live.length < 3) return false;
+      return live.includes(name) || name.includes(live);
+    });
+  })?.hospital;
+}
+
+function safeInt(value) {
+  const number = Number.parseInt(value, 10);
+  return Number.isFinite(number) ? number : null;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function project(point) {
+  const x = 70 + ((point.lng - bounds.minLng) / (bounds.maxLng - bounds.minLng)) * 850;
+  const y = 95 + ((bounds.maxLat - point.lat) / (bounds.maxLat - bounds.minLat)) * 665;
+  return {
+    x: clamp(x, 38, 962),
+    y: clamp(y, 38, 810)
+  };
+}
+
+function kmBetween(a, b) {
+  const r = 6371;
+  const dLat = (b.lat - a.lat) * Math.PI / 180;
+  const dLng = (b.lng - a.lng) * Math.PI / 180;
+  const lat1 = a.lat * Math.PI / 180;
+  const lat2 = b.lat * Math.PI / 180;
+  const x = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * r * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+}
+
+function fallbackRouteMetric(hospital) {
+  if (!selectedDistrict) return null;
+  const distance = kmBetween(selectedDistrict, hospital);
+  return {
+    distance,
+    duration: Math.round(distance / 28 * 60 + 5),
+    estimated: true
+  };
+}
+
+function metricFor(hospital) {
+  if (!selectedDistrict) return null;
+  return routeMetrics.get(hospital.id) || fallbackRouteMetric(hospital);
+}
+
+function timeText(metric) {
+  if (!metric) return "-";
+  const minutes = Math.max(1, Math.round(metric.duration));
+  return `${minutes} 分`;
+}
+
+function distanceText(metric) {
+  if (!metric) return "-";
+  return `${metric.distance.toFixed(1)} km`;
+}
+
+function filteredHospitals() {
+  if (selectedCapability === "all") return hospitals;
+  return hospitals.filter((hospital) => ["full", "partial"].includes(hospital.capabilities[selectedCapability]));
+}
+
+function levelBadge(level) {
+  return `<span class="level ${levelClass[level] || "general"}">${escapeHtml(level)}</span>`;
+}
+
+function capabilityBadges(hospital) {
+  return Object.entries(capabilityLabels).map(([key, label]) => {
+    const value = hospital.capabilities[key] || "none";
+    return `<span class="badge ${value}" title="${escapeHtml(hospital.notes?.[key] || "")}">${label}:${capabilityText[value]}</span>`;
+  }).join("");
+}
+
+function liveBadge(status) {
+  if (!status) return `<span class="badge none">無即時資料</span>`;
+  const full = status.full119 ? `<span class="badge full119">119滿床</span>` : `<span class="badge live">未通報滿床</span>`;
+  const see = status.waitSee === null ? "-" : status.waitSee;
+  const admit = status.waitAdmit === null ? "-" : status.waitAdmit;
+  const icu = status.waitIcu === null ? "-" : status.waitIcu;
+  return `${full}<span class="badge live">候診 ${see}</span><span class="badge live">等住院 ${admit}</span><span class="badge live">等 ICU ${icu}</span>`;
+}
+
+function mapLabel(hospital) {
+  const labels = {
+    ntuh: "臺大",
+    ho_ping: "聯醫和平",
+    west_garden: "西園",
+    zhongxing: "聯醫中興",
+    cheng_hsin: "振興",
+    vghtpe: "北榮",
+    pojen: "博仁",
+    tri_songshan: "三總松山",
+    tai_an: "臺安",
+    tmuh: "北醫附醫",
+    mackay: "馬偕",
+    wanfang: "萬芳",
+    zhongxiao: "聯醫忠孝",
+    renai: "聯醫仁愛",
+    cathay: "國泰",
+    shin_kong: "新光",
+    yangming: "聯醫陽明",
+    tri_service: "三總"
+  };
+  return labels[hospital.id] || hospital.shortName || hospital.name;
+}
+
+function sortedByTravel() {
+  if (!selectedDistrict) return [];
+  return filteredHospitals()
+    .map((hospital) => ({ hospital, metric: metricFor(hospital) }))
+    .sort((a, b) => a.metric.duration - b.metric.duration || a.metric.distance - b.metric.distance);
+}
+
+function routeDeltaText(baseMetric, compareMetric) {
+  if (!baseMetric || !compareMetric) return "";
+  const delta = Math.round(baseMetric.duration - compareMetric.duration);
+  if (delta > 0) return `比北醫快 ${delta} 分`;
+  if (delta < 0) return `比北醫慢 ${Math.abs(delta)} 分`;
+  return "與北醫相近";
+}
+
+function drawCuteMap() {
+  const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
+  const tmuhPoint = project(tmuh);
+  const origin = selectedDistrict ? project(selectedDistrict) : null;
+  const districtBlobs = districts.filter((district) => district.id !== "newtaipei").map((district) => {
+    const p = project(district);
+    return `
+      <g class="district-blob">
+        <text x="${p.x}" y="${p.y + 5}">${escapeHtml(district.name.replace("區", ""))}</text>
+      </g>
+    `;
+  }).join("");
+
+  const hospitalNodes = hospitals.map((hospital) => {
+    const p = project(hospital);
+    const [labelX, labelY] = labelSlots[hospital.id] || [p.x + 16, p.y - 16];
+    return `
+      <g class="map-hospital ${levelClass[hospital.level] || "general"} ${hospital.id === tmuhId ? "tmuh" : ""}" data-id="${hospital.id}">
+        <g class="map-label">
+          <rect x="${labelX}" y="${labelY - 24}" width="96" height="31" rx="9" />
+          <text class="map-name" x="${labelX + 48}" y="${labelY - 3}">${escapeHtml(mapLabel(hospital))}</text>
+        </g>
+      </g>
+    `;
+  }).join("");
+
+  cuteMap.innerHTML = `
+    <defs>
+      <pattern id="softGrid" width="34" height="34" patternUnits="userSpaceOnUse">
+        <path d="M 34 0 L 0 0 0 34" fill="none" stroke="#e9d8c9" stroke-width="1" opacity=".55" />
+      </pattern>
+      <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#9b8273" flood-opacity=".18" />
+      </filter>
+    </defs>
+    <rect class="map-paper" x="0" y="0" width="1000" height="860" rx="28" />
+    <rect x="24" y="24" width="952" height="812" rx="24" fill="url(#softGrid)" opacity=".36" />
+    <path class="taipei-shape" d="M 306 92 C 370 50, 442 64, 494 104 C 537 137, 572 143, 629 130 C 711 110, 812 134, 856 205 C 893 266, 870 337, 910 389 C 959 452, 927 536, 854 565 C 783 593, 768 644, 731 698 C 681 773, 591 804, 520 759 C 465 724, 414 723, 357 744 C 278 773, 190 736, 171 652 C 157 588, 108 566, 83 509 C 54 441, 80 364, 139 330 C 191 301, 205 260, 211 205 C 218 153, 258 124, 306 92 Z" />
+    <path class="river" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
+    <path class="road artery" d="M 150 667 C 281 570, 383 512, 529 465 S 783 394, 888 252" />
+    <path class="road artery" d="M 182 486 C 318 472, 455 463, 604 444 S 785 399, 884 342" />
+    <path class="road artery" d="M 524 744 C 545 618, 570 519, 603 415 S 675 224, 731 134" />
+    <path class="road metro" d="M 180 176 C 316 278, 468 319, 612 388 S 752 547, 874 626" />
+    <path class="road metro" d="M 302 742 C 360 605, 400 493, 460 353 S 584 200, 700 108" />
+    ${districtBlobs}
+    ${origin ? `<g class="origin-pin">
+      <circle cx="${origin.x}" cy="${origin.y}" r="18" />
+      <text x="${origin.x}" y="${origin.y + 5}">起</text>
+      <text class="origin-label" x="${clamp(origin.x + 20, 34, 820)}" y="${clamp(origin.y - 18, 28, 805)}">起點</text>
+    </g>` : ""}
+    ${hospitalNodes}
+    <g class="map-note">
+      <rect x="696" y="640" width="250" height="198" rx="14" />
+      <text class="note-title" x="725" y="687">圖例</text>
+      <rect class="legend-box tmuh" x="725" y="704" width="34" height="18" rx="6" />
+      <text x="768" y="718">北醫附醫</text>
+      <rect class="legend-box severe" x="725" y="729" width="34" height="18" rx="6" />
+      <text x="768" y="743">重度級急救責任醫院</text>
+      <rect class="legend-box moderate" x="725" y="754" width="34" height="18" rx="6" />
+      <text x="768" y="768">中度級急救責任醫院</text>
+      <rect class="legend-box general" x="725" y="779" width="34" height="18" rx="6" />
+      <text x="768" y="793">一般級急救責任醫院</text>
+      <path class="legend-road yellow" d="M 725 807 L 759 807" />
+      <text x="768" y="811">黃線：忠孝/基隆/市民幹道示意</text>
+      <path class="legend-road coral" d="M 725 827 L 759 827" />
+      <text x="768" y="831">紅線：板南/淡水信義捷運示意</text>
+    </g>
+    <path class="tmuh-spark" d="M ${tmuhPoint.x - 25} ${tmuhPoint.y - 25} L ${tmuhPoint.x - 13} ${tmuhPoint.y - 13} M ${tmuhPoint.x + 23} ${tmuhPoint.y - 20} L ${tmuhPoint.x + 12} ${tmuhPoint.y - 9} M ${tmuhPoint.x - 22} ${tmuhPoint.y + 24} L ${tmuhPoint.x - 10} ${tmuhPoint.y + 12}" />
+  `;
+
+  cuteMap.querySelectorAll(".map-hospital").forEach((node) => {
+    node.addEventListener("click", () => {
+      const hospital = hospitals.find((item) => item.id === node.dataset.id);
+      if (!hospital) return;
+      selectedCapability = selectedCapability;
+      showHospitalToast(hospital);
+    });
+  });
+}
+
+function showHospitalToast(hospital) {
+  const status = erStatus.get(hospital.id);
+  const metric = metricFor(hospital);
+  verdict.innerHTML = `
+    <div class="verdict-card">
+      <strong>${escapeHtml(hospital.shortName || hospital.name)}</strong>
+      <p class="sub">${escapeHtml(hospital.district)} | ${hospital.level}${metric ? ` | ${timeText(metric)} / ${distanceText(metric)}` : ""}${status ? ` | 候診 ${status.waitSee ?? "-"}、等住院 ${status.waitAdmit ?? "-"}、等 ICU ${status.waitIcu ?? "-"}` : " | 目前沒有即時急診資料"}</p>
+    </div>
+  `;
+}
+
+function renderVerdict() {
+  mapFocus.textContent = selectedDistrict ? `${selectedDistrict.name} → 北醫附醫` : "輸入地址後計算";
+  routeSource.textContent = routeMode;
+  if (!selectedDistrict) {
+    tmuhRank.textContent = "";
+    verdict.innerHTML = `
+      <div class="verdict-card quiet">
+        <strong>先輸入EMT接觸地點</strong>
+        <p class="sub">選定候選地址後，這裡會直接判讀送北醫是否疑似跨區，並把更近的急診醫院排在下面。</p>
+      </div>
+    `;
+    return;
+  }
+  const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
+  const allRanks = hospitals
+    .map((hospital) => ({ hospital, metric: metricFor(hospital) }))
+    .sort((a, b) => a.metric.duration - b.metric.duration || a.metric.distance - b.metric.distance);
+  const ranked = sortedByTravel();
+  const tmuhGlobal = allRanks.findIndex((item) => item.hospital.id === tmuhId) + 1;
+  const tmuhFiltered = ranked.findIndex((item) => item.hospital.id === tmuhId) + 1;
+  const tmuhMetric = metricFor(tmuh);
+  const originDistrict = selectedDistrict.district || (selectedDistrict.name?.endsWith("區") ? selectedDistrict.name : "");
+  const sameDistrict = originDistrict ? originDistrict === tmuhDistrict : false;
+  const nearest = ranked[0]?.hospital;
+  const capLabel = selectedCapability === "all" ? "不限特殊能力" : `${capabilityLabels[selectedCapability]}能力`;
+  const capabilityNote = selectedCapability === "all"
+    ? `以全部急診責任醫院排序，北醫為第 ${tmuhGlobal} 近。`
+    : (tmuhFiltered > 0 ? `在具 ${capLabel} 的醫院中，北醫為第 ${tmuhFiltered} 近。` : `北醫未被標示為具 ${capLabel}。`);
+  const nearerHospitals = allRanks
+    .filter((item) => item.hospital.id !== tmuhId && item.metric.duration < tmuhMetric.duration - 1)
+    .slice(0, 3);
+  const sameDistrictHospitals = originDistrict
+    ? allRanks.filter((item) => item.hospital.district === originDistrict && item.hospital.id !== tmuhId).slice(0, 3)
+    : [];
+  const verdictClass = !originDistrict ? "neutral" : (sameDistrict ? "ok" : "alert");
+  const verdictTitle = !originDistrict
+    ? "行政區待確認"
+    : (sameDistrict ? "信義區內送北醫" : "疑似跨區送北醫");
+  const districtText = originDistrict
+    ? `案發行政區：${originDistrict}；北醫所在行政區：${tmuhDistrict}。`
+    : "目前地址結果沒有明確行政區，請用候選清單中較完整的地址。";
+  const nearerText = nearerHospitals.length
+    ? `較快急診：${nearerHospitals.map(({ hospital, metric }) => `${hospital.shortName || hospital.name} ${timeText(metric)}`).join("、")}。`
+    : "北醫已是目前條件下最快或相近的急診之一。";
+  const sameDistrictText = sameDistrictHospitals.length
+    ? `同區急診：${sameDistrictHospitals.map(({ hospital, metric }) => `${hospital.shortName || hospital.name} ${timeText(metric)}`).join("、")}。`
+    : "";
+
+  tmuhRank.textContent = capabilityNote;
+  verdict.innerHTML = `
+    <div class="verdict-card ${verdictClass}">
+      <strong>${verdictTitle}</strong>
+      <p class="sub">${districtText} 送北醫估 ${timeText(tmuhMetric)}、${distanceText(tmuhMetric)}；${capabilityNote}</p>
+      <p class="sub">${nearerText}${sameDistrictText ? ` ${sameDistrictText}` : ""}</p>
+    </div>
+  `;
+}
+
+function renderNearest() {
+  if (!selectedDistrict) {
+    nearestList.innerHTML = `<div class="empty-state">輸入地址後顯示各院車程排序。</div>`;
+    return;
+  }
+  const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
+  const items = sortedByTravel().slice(0, 8);
+  nearestList.innerHTML = items.map((item, index) => {
+    const hospital = item.hospital;
+    const status = erStatus.get(hospital.id);
+    return `
+      <article class="nearest-item">
+        <span class="rank">${index + 1}</span>
+        <div>
+          <div class="name-line">${escapeHtml(hospital.shortName || hospital.name)} ${levelBadge(hospital.level)}</div>
+          <div class="meta">${escapeHtml(hospital.district)}${hospital.id === tmuhId ? " | 送達目標" : ""} | ${routeDeltaText(metricFor(tmuh), item.metric)} | ${liveBadge(status)}</div>
+        </div>
+        <div class="distance"><b>${timeText(item.metric)}</b><span>${distanceText(item.metric)}</span></div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderHospitalCards() {
+  const ordered = [...hospitals].sort((a, b) => {
+    const levelScore = { "重度級": 0, "中度級": 1, "一般級": 2 };
+    return levelScore[a.level] - levelScore[b.level] || a.district.localeCompare(b.district, "zh-Hant");
+  });
+  hospitalCards.innerHTML = ordered.map((hospital) => {
+    const status = erStatus.get(hospital.id);
+    const metric = metricFor(hospital);
+    return `
+      <article class="hospital-card">
+        <div class="name-line">${escapeHtml(hospital.shortName || hospital.name)} ${levelBadge(hospital.level)}</div>
+        <div class="meta">${escapeHtml(hospital.district)} | ${escapeHtml(hospital.address)}${metric ? ` | 估 ${timeText(metric)} / ${distanceText(metric)}` : ""}</div>
+        <div class="badge-row">${liveBadge(status)}</div>
+        <div class="badge-row">${capabilityBadges(hospital)}</div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderAll() {
+  renderVerdict();
+  renderNearest();
+  renderHospitalCards();
+  drawCuteMap();
+}
+
+async function updateRoutes() {
+  if (!selectedDistrict) {
+    routeMetrics = new Map();
+    routeMode = "輸入地址後估算";
+    renderAll();
+    return;
+  }
+  routeMode = "車程估算中";
+  routeMetrics = new Map(hospitals.map((hospital) => [hospital.id, fallbackRouteMetric(hospital)]));
+  renderAll();
+  routeSource.textContent = routeMode;
+  const destinations = hospitals.map((hospital) => ({ id: hospital.id, lat: hospital.lat, lng: hospital.lng }));
+  try {
+    let result;
+    if (sameOriginApiAvailable) {
+      try {
+        result = await fetch("/api/routes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            origin: { lat: selectedDistrict.lat, lng: selectedDistrict.lng },
+            destinations
+          })
+        }).then((response) => {
+          if (!response.ok) throw new Error(`routes ${response.status}`);
+          return response.json();
+        });
+      } catch {
+        result = null;
+      }
+    }
+    if (!result) {
+      const coordinates = [
+        { lat: selectedDistrict.lat, lng: selectedDistrict.lng },
+        ...destinations
+      ].map((point) => `${point.lng},${point.lat}`).join(";");
+      const params = new URLSearchParams({ sources: "0", annotations: "duration,distance" });
+      result = await fetch(`https://router.project-osrm.org/table/v1/driving/${coordinates}?${params}`).then((response) => {
+        if (!response.ok) throw new Error(`osrm ${response.status}`);
+        return response.json();
+      });
+    }
+    routeMetrics = new Map();
+    destinations.forEach((destination, index) => {
+      const duration = result.durations?.[0]?.[index + 1];
+      const distance = result.distances?.[0]?.[index + 1];
+      const hospital = hospitals.find((item) => item.id === destination.id);
+      if (Number.isFinite(duration) && Number.isFinite(distance)) {
+        routeMetrics.set(destination.id, {
+          duration: duration / 60,
+          distance: distance / 1000,
+          estimated: false
+        });
+      } else if (hospital) {
+        routeMetrics.set(destination.id, fallbackRouteMetric(hospital));
+      }
+    });
+    routeMode = "OSRM 車程估算";
+  } catch (error) {
+    routeMetrics = new Map(hospitals.map((hospital) => [hospital.id, fallbackRouteMetric(hospital)]));
+    routeMode = "直線距離換算";
+    console.warn(error);
+  } finally {
+    renderAll();
+  }
+}
+
+async function refreshErStatus() {
+  livePill.className = "live-pill";
+  livePill.textContent = "讀取即時急診";
+  refreshButton.disabled = true;
+  try {
+    let result;
+    if (sameOriginApiAvailable) {
+      try {
+        result = await fetch("/api/er-status").then((response) => {
+          if (!response.ok) throw new Error(`status ${response.status}`);
+          return response.json();
+        });
+      } catch {
+        result = null;
+      }
+    }
+    if (!result) {
+      result = await fetch("./data/er-status.json", { cache: "no-store" }).then((response) => {
+        if (!response.ok) throw new Error(`static status ${response.status}`);
+        return response.json();
+      });
+    }
+    erStatus = new Map();
+    (result.data || []).forEach((item) => {
+      const hasLiveCounts = [item.waiT_SEE_CNT, item.waiT_GENERAL_CNT, item.waiT_ICU_CNT].some((value) => value !== null && value !== undefined);
+      if (!hasLiveCounts) return;
+      const hospital = matchHospital(item.hosP_NAME);
+      if (!hospital) return;
+      erStatus.set(hospital.id, {
+        sourceName: item.hosP_NAME,
+        full119: item.inform === "Y",
+        waitSee: safeInt(item.waiT_SEE_CNT),
+        waitBed: safeInt(item.waiT_BED_CNT),
+        waitAdmit: safeInt(item.waiT_GENERAL_CNT),
+        waitIcu: safeInt(item.waiT_ICU_CNT),
+        updatedAt: item.txT_DATE
+      });
+    });
+    livePill.className = "live-pill ok";
+    livePill.textContent = `即時 ${result.sysdate || "已更新"}`;
+  } catch (error) {
+    livePill.className = "live-pill warn";
+    livePill.textContent = "即時資料失敗";
+    console.error(error);
+  } finally {
+    refreshButton.disabled = false;
+    renderAll();
+  }
+}
+
+function initControls() {
+  addressInput.value = "";
+  addressInput.addEventListener("input", () => {
+    window.clearTimeout(suggestionTimer);
+    const query = addressInput.value.trim();
+    if (query.length < 2) {
+      suggestions.hidden = true;
+      suggestions.innerHTML = "";
+      return;
+    }
+    suggestionTimer = window.setTimeout(() => searchSuggestions(query), 260);
+  });
+  addressInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const first = suggestions.querySelector("button");
+      if (first) first.click();
+    }
+  });
+  capabilitySelect.addEventListener("change", () => {
+    selectedCapability = capabilitySelect.value;
+    renderAll();
+  });
+  refreshButton.addEventListener("click", refreshErStatus);
+}
+
+async function searchSuggestions(query) {
+  suggestions.hidden = false;
+  suggestions.innerHTML = `<div class="suggestion-note">搜尋中...</div>`;
+  try {
+    let result;
+    if (sameOriginApiAvailable) {
+      try {
+        result = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`).then((response) => {
+          if (!response.ok) throw new Error(`geocode ${response.status}`);
+          return response.json();
+        });
+      } catch {
+        result = null;
+      }
+    }
+    if (!result) {
+      result = { results: await browserGeocode(query) };
+    }
+    const items = result.results || [];
+    if (!items.length) {
+      suggestions.innerHTML = `<div class="suggestion-note">找不到候選地址</div>`;
+      return;
+    }
+    suggestions.innerHTML = items.map((item, index) => `
+      <button type="button" data-index="${index}">
+        <strong>${escapeHtml(item.label.split(",")[0])}</strong>
+        <span>${escapeHtml(item.label)}</span>
+      </button>
+    `).join("");
+    suggestions.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = items[Number(button.dataset.index)];
+        selectedDistrict = {
+          id: "address",
+          name: item.label.split(",")[0] || "地址位置",
+          label: item.label,
+          district: item.district,
+          lat: item.lat,
+          lng: item.lng,
+          source: "address"
+        };
+        addressInput.value = selectedDistrict.name;
+        suggestions.hidden = true;
+        updateRoutes();
+      });
+    });
+  } catch (error) {
+    suggestions.innerHTML = `<div class="suggestion-note">地址提示暫時失敗</div>`;
+    console.warn(error);
+  }
+}
+
+async function browserGeocode(query) {
+  const variants = buildBrowserGeocodeQueries(query);
+  const seen = new Set();
+  const output = [];
+  for (const q of variants) {
+    const params = new URLSearchParams({
+      q,
+      format: "jsonv2",
+      addressdetails: "1",
+      limit: "6",
+      countrycodes: "tw",
+      "accept-language": "zh-TW",
+      viewbox: "121.42,25.20,121.70,24.92",
+      bounded: "0"
+    });
+    try {
+      const rows = await fetch(`https://nominatim.openstreetmap.org/search?${params}`).then((response) => response.json());
+      rows.forEach((item) => {
+        const lat = Number(item.lat);
+        const lng = Number(item.lon);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+        const key = `${Math.round(lat * 10000)}:${Math.round(lng * 10000)}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        output.push({
+          label: item.display_name,
+          lat,
+          lng,
+          district: item.address?.city_district || item.address?.suburb || item.address?.borough || "",
+          source: "osm"
+        });
+      });
+    } catch {
+      // Keep trying other variants.
+    }
+    if (output.length >= 5) break;
+  }
+  return output.slice(0, 8);
+}
+
+function buildBrowserGeocodeQueries(query) {
+  const trimmed = query.trim();
+  const hasCity = /台北|臺北|新北|基隆|桃園/.test(trimmed);
+  const variants = [trimmed];
+  if (!hasCity) variants.push(`臺北市 ${trimmed}`, `台北市 ${trimmed}`);
+  variants.push(`${trimmed} 台灣`);
+  return [...new Set(variants)].filter(Boolean);
+}
+
+initControls();
+renderAll();
+refreshErStatus();
