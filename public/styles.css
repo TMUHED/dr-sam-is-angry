@@ -510,11 +510,11 @@ button:disabled {
 
 .tmuh-route {
   fill: none;
-  opacity: 0.82;
-  stroke: #2b2f3a;
-  stroke-dasharray: 9 9;
+  opacity: 0.8;
+  stroke: #ff9b76;
+  stroke-dasharray: 2 10;
   stroke-linecap: round;
-  stroke-width: 4;
+  stroke-width: 5;
 }
 
 .tmuh-route-layer {
@@ -714,12 +714,12 @@ details .hospital-cards {
   .panel {
     border-right: 0;
     max-height: none;
-    order: 2;
+    order: 1;
   }
 
   .map-wrap {
     min-height: 66vh;
-    order: 1;
+    order: 2;
   }
 
   #cuteMap {
@@ -730,15 +730,37 @@ details .hospital-cards {
 
 @media (max-width: 620px) {
   .panel {
+    display: flex;
+    flex-direction: column;
     padding: 16px;
   }
 
   .topbar {
     display: grid;
+    order: 2;
+    padding-bottom: 0;
+    padding-top: 16px;
   }
 
   .query {
     grid-template-columns: 1fr;
+    order: 1;
+  }
+
+  .verdict {
+    order: 3;
+  }
+
+  .nearest {
+    order: 4;
+  }
+
+  .table-wrap {
+    order: 5;
+  }
+
+  .source-box {
+    order: 6;
   }
 
   .address-field,
