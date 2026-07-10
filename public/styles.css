@@ -491,14 +491,19 @@ button:disabled {
 }
 
 .district-name {
-  fill: rgba(61, 74, 71, 0.26);
-  font-size: 24px;
-  font-weight: 900;
+  fill: rgba(58, 92, 59, 0.76);
+  font-size: 18px;
+  font-weight: 950;
   paint-order: stroke;
   pointer-events: none;
-  stroke: rgba(255, 249, 239, 0.72);
-  stroke-width: 5px;
+  stroke: rgba(255, 252, 244, 0.94);
+  stroke-linejoin: round;
+  stroke-width: 6px;
   text-anchor: middle;
+}
+
+.district-names {
+  pointer-events: none;
 }
 
 .river {
@@ -517,12 +522,38 @@ button:disabled {
   stroke-width: 5;
 }
 
+.tmuh-route-halo {
+  fill: none;
+  opacity: 0.92;
+  stroke: rgba(255, 253, 247, 0.95);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 13;
+}
+
 .tmuh-route-layer {
   pointer-events: none;
 }
 
+.tmuh-destination {
+  pointer-events: none;
+}
+
+.tmuh-destination circle {
+  fill: #ffd765;
+  stroke: #2b2f3a;
+  stroke-width: 3;
+}
+
+.tmuh-destination path {
+  fill: none;
+  stroke: #2b2f3a;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
 .ambulance-car {
-  filter: drop-shadow(0 3px 3px rgba(43, 47, 58, 0.22));
+  filter: drop-shadow(0 3px 3px rgba(43, 47, 58, 0.28));
 }
 
 .ambulance-body,

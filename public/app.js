@@ -320,9 +320,9 @@ const labelSlots = {
 };
 
 const districtRegions = [
-  { name: "北投", label: [285, 265], path: "M 556.2 118.4 L 520.9 137.5 L 524.3 152.2 L 513.3 167.4 L 497 178.5 L 505.6 191.7 L 496.3 213.9 L 479.9 219 L 452.8 250.5 L 450.5 264.7 L 438.3 273.9 L 420.4 274.9 L 390.6 285.5 L 378.6 295.3 L 382.6 312.3 L 363.7 326.1 L 352.1 343.7 L 360.7 356.5 L 342.7 368.4 L 327.1 395.7 L 292.6 406.3 L 250.2 399.4 L 244.7 360.7 L 218.2 349.8 L 157.9 363 L 132.2 360.5 L 108.9 347.4 L 102.8 330.9 L 123 322.8 L 127.2 303 L 151.8 285.1 L 194.2 249 L 208.1 247.4 L 232.5 218.4 L 250.6 209.8 L 271.2 183.7 L 301.2 193.4 L 311.3 189 L 338.6 193.4 L 348.3 178.1 L 345 165.7 L 360.5 154.7 L 390.2 152.4 L 399.8 143.5 L 427 136.9 L 428.6 123.5 L 440.6 113.6 L 464.8 108.3 L 460.6 98.7 L 474.3 80.5 L 504.3 78 L 512.7 102.1 L 544.9 119.5 L 556.2 118.4 Z" },
-  { name: "士林", label: [357.8, 405.9], path: "M 632.3 353.3 L 602.3 354.4 L 591.8 368.8 L 570.5 375.6 L 533.9 378.5 L 520.1 397 L 489 398 L 472.2 415.3 L 463.3 416.3 L 435.4 422.1 L 409.5 418.5 L 355 449.7 L 348.1 460.6 L 323.7 451.5 L 278.9 457.7 L 259.8 431.2 L 218.4 403.4 L 187.1 391.8 L 130.1 389.5 L 95 373.7 L 108.9 347.4 L 132.2 360.5 L 157.9 363 L 218.2 349.8 L 244.7 360.7 L 250.2 399.4 L 292.6 406.3 L 327.1 395.7 L 342.7 368.4 L 360.7 356.5 L 352.1 343.7 L 363.7 326.1 L 382.6 312.3 L 378.6 295.3 L 390.6 285.5 L 420.4 274.9 L 438.3 273.9 L 450.5 264.7 L 452.8 250.5 L 479.9 219 L 496.3 213.9 L 505.6 191.7 L 497 178.5 L 513.3 167.4 L 524.3 152.2 L 520.9 137.5 L 556.2 118.4 L 583.3 119.3 L 586.9 137.3 L 574.9 156.7 L 584 169.9 L 577.9 180.7 L 560.7 191.9 L 560 200.3 L 596 210.4 L 609.6 209.9 L 617 227.6 L 608.8 243.3 L 624.6 249.5 L 632.5 268.2 L 664.7 289.6 L 666.6 319 L 632.3 353.3 Z" },
-  { name: "內湖", label: [617.9, 443.5], path: "M 632.3 353.3 L 639.1 366.8 L 679.9 374.7 L 708.9 383.2 L 739.5 403.2 L 760.1 433.4 L 743.5 451 L 732.4 482.4 L 711.6 498.7 L 698.3 497.6 L 680.1 510.2 L 634.4 514.4 L 619.9 511.1 L 602.3 523.1 L 571 530.6 L 544.2 534 L 530.8 500.7 L 540.9 476.9 L 538 468.6 L 534 460.7 L 513.1 456.5 L 498 439.7 L 468.2 423.8 L 463.3 416.3 L 472.2 415.3 L 489 398 L 520.1 397 L 533.9 378.5 L 570.5 375.6 L 591.8 368.8 L 602.3 354.4 L 632.3 353.3 Z" },
+  { name: "北投", label: [395, 225], path: "M 556.2 118.4 L 520.9 137.5 L 524.3 152.2 L 513.3 167.4 L 497 178.5 L 505.6 191.7 L 496.3 213.9 L 479.9 219 L 452.8 250.5 L 450.5 264.7 L 438.3 273.9 L 420.4 274.9 L 390.6 285.5 L 378.6 295.3 L 382.6 312.3 L 363.7 326.1 L 352.1 343.7 L 360.7 356.5 L 342.7 368.4 L 327.1 395.7 L 292.6 406.3 L 250.2 399.4 L 244.7 360.7 L 218.2 349.8 L 157.9 363 L 132.2 360.5 L 108.9 347.4 L 102.8 330.9 L 123 322.8 L 127.2 303 L 151.8 285.1 L 194.2 249 L 208.1 247.4 L 232.5 218.4 L 250.6 209.8 L 271.2 183.7 L 301.2 193.4 L 311.3 189 L 338.6 193.4 L 348.3 178.1 L 345 165.7 L 360.5 154.7 L 390.2 152.4 L 399.8 143.5 L 427 136.9 L 428.6 123.5 L 440.6 113.6 L 464.8 108.3 L 460.6 98.7 L 474.3 80.5 L 504.3 78 L 512.7 102.1 L 544.9 119.5 L 556.2 118.4 Z" },
+  { name: "士林", label: [445, 365], path: "M 632.3 353.3 L 602.3 354.4 L 591.8 368.8 L 570.5 375.6 L 533.9 378.5 L 520.1 397 L 489 398 L 472.2 415.3 L 463.3 416.3 L 435.4 422.1 L 409.5 418.5 L 355 449.7 L 348.1 460.6 L 323.7 451.5 L 278.9 457.7 L 259.8 431.2 L 218.4 403.4 L 187.1 391.8 L 130.1 389.5 L 95 373.7 L 108.9 347.4 L 132.2 360.5 L 157.9 363 L 218.2 349.8 L 244.7 360.7 L 250.2 399.4 L 292.6 406.3 L 327.1 395.7 L 342.7 368.4 L 360.7 356.5 L 352.1 343.7 L 363.7 326.1 L 382.6 312.3 L 378.6 295.3 L 390.6 285.5 L 420.4 274.9 L 438.3 273.9 L 450.5 264.7 L 452.8 250.5 L 479.9 219 L 496.3 213.9 L 505.6 191.7 L 497 178.5 L 513.3 167.4 L 524.3 152.2 L 520.9 137.5 L 556.2 118.4 L 583.3 119.3 L 586.9 137.3 L 574.9 156.7 L 584 169.9 L 577.9 180.7 L 560.7 191.9 L 560 200.3 L 596 210.4 L 609.6 209.9 L 617 227.6 L 608.8 243.3 L 624.6 249.5 L 632.5 268.2 L 664.7 289.6 L 666.6 319 L 632.3 353.3 Z" },
+  { name: "內湖", label: [675, 420], path: "M 632.3 353.3 L 639.1 366.8 L 679.9 374.7 L 708.9 383.2 L 739.5 403.2 L 760.1 433.4 L 743.5 451 L 732.4 482.4 L 711.6 498.7 L 698.3 497.6 L 680.1 510.2 L 634.4 514.4 L 619.9 511.1 L 602.3 523.1 L 571 530.6 L 544.2 534 L 530.8 500.7 L 540.9 476.9 L 538 468.6 L 534 460.7 L 513.1 456.5 L 498 439.7 L 468.2 423.8 L 463.3 416.3 L 472.2 415.3 L 489 398 L 520.1 397 L 533.9 378.5 L 570.5 375.6 L 591.8 368.8 L 602.3 354.4 L 632.3 353.3 Z" },
   { name: "大同", label: [311.2, 501.4], path: "M 348.1 460.6 L 340.1 472.1 L 334.4 496.6 L 340.3 510 L 339.1 535.8 L 333.2 543.7 L 302.1 543.8 L 278.7 539.7 L 284.8 528.4 L 282.5 507.8 L 288 481.4 L 278.9 457.7 L 323.7 451.5 L 348.1 460.6 Z" },
   { name: "中山", label: [388.8, 498.5], path: "M 463.3 416.3 L 468.2 423.8 L 498 439.7 L 513.1 456.5 L 534 460.7 L 538 468.6 L 529.1 463.2 L 506.2 473.7 L 465.2 464.9 L 450.1 478 L 411 477.4 L 432.8 489.9 L 430.9 553.7 L 427.6 554.1 L 424.2 554.3 L 420 554.5 L 418.1 554.5 L 408.7 554.3 L 402.6 554.2 L 397.3 553.6 L 395.4 553.3 L 389.7 552.3 L 388.5 552.1 L 333.2 543.7 L 339.1 535.8 L 340.3 510 L 334.4 496.6 L 340.1 472.1 L 348.1 460.6 L 355 449.7 L 409.5 418.5 L 435.4 422.1 L 463.3 416.3 Z" },
   { name: "松山", label: [505.3, 530.3], path: "M 538 468.6 L 540.9 476.9 L 530.8 500.7 L 544.2 534 L 571 530.6 L 571.6 540.6 L 529.7 541.2 L 484.6 552.8 L 483.5 553.1 L 476.3 554.2 L 473.2 554.8 L 471.1 555.1 L 466.5 555 L 464 554.7 L 459.3 554.3 L 455.5 554.1 L 444.2 553.1 L 435.1 553.3 L 431.8 553.7 L 430.9 553.7 L 432.8 489.9 L 411 477.4 L 450.1 478 L 465.2 464.9 L 506.2 473.7 L 529.1 463.2 L 538 468.6 Z" },
@@ -333,6 +333,25 @@ const districtRegions = [
   { name: "信義", label: [570, 583], path: "M 571.6 540.6 L 574.3 552.7 L 597.4 563.6 L 618.2 593.1 L 591.6 613.4 L 585.3 629.2 L 563.6 643.6 L 560.7 643.3 L 559.2 642.9 L 557.1 642.5 L 556.4 642.5 L 554.8 643.7 L 553.3 645 L 550.1 645.6 L 545.1 645.5 L 544.3 645.3 L 541.7 644.4 L 540.3 646.7 L 540.1 647.4 L 540.1 648 L 539.8 649.2 L 538.6 650.3 L 537.3 651 L 536.3 651.5 L 532.5 652.8 L 532.1 653 L 530 655.4 L 528.7 655.9 L 526.8 657 L 525.8 657.5 L 523.7 658.1 L 523.2 658.2 L 521.5 659.1 L 519.5 659.6 L 516.9 660.1 L 516.7 660.2 L 515.7 658.1 L 514.2 654.8 L 513.3 654.3 L 507.5 650.9 L 507.2 650.3 L 507 649.5 L 507 648.5 L 507 645.6 L 504.7 644.3 L 502.4 641.8 L 501.6 641 L 499.5 639.5 L 495.7 636.5 L 494.8 634.6 L 493.4 633.2 L 491.1 631.3 L 489.8 630.4 L 487.7 628.9 L 486.7 628.3 L 484.3 626.5 L 481 624.2 L 479.7 623.3 L 470 616.5 L 466.3 612.2 L 469.2 610.2 L 473.4 607.4 L 477.2 604.8 L 478 604.4 L 479.7 603.1 L 480.5 602.4 L 482 600.6 L 482.9 599.3 L 483.5 598.7 L 483.5 596 L 483.5 593 L 483.7 588 L 483.7 586.2 L 483.7 584.5 L 483.9 582.3 L 483.9 579.4 L 483.9 578.7 L 484.1 575.1 L 484.3 569.6 L 484.3 566.2 L 484.5 560.5 L 484.6 557.1 L 484.6 553.6 L 484.6 552.8 L 529.7 541.2 L 571.6 540.6 Z" },
   { name: "文山", label: [528.6, 715.5], path: "M 638.4 642 L 632.1 663 L 651.1 681.6 L 641.8 699.7 L 656.3 711.3 L 648.5 722.8 L 649.6 750.5 L 668.9 757.7 L 692.7 757.2 L 723.4 768.8 L 725.1 778.8 L 702.1 780.8 L 681.9 790.2 L 637.6 798 L 623.3 787.3 L 593.5 790.2 L 566.1 780.4 L 544 787.5 L 498.4 785.9 L 466.7 739.4 L 470 729 L 434.9 730.6 L 431.1 717.6 L 403.8 716.4 L 401.5 700.8 L 383.6 698.9 L 379.2 689.4 L 392.1 673.3 L 384.3 658.6 L 384.7 658.5 L 385.7 658 L 387 657.5 L 390.6 655.9 L 392.3 655.2 L 393.5 654.7 L 396.3 653.3 L 397.7 652.7 L 400 651.8 L 401.5 651.5 L 403 651.3 L 404.5 651.1 L 407.6 659 L 435.2 660.5 L 468.4 657 L 487.9 649.2 L 505.6 660.5 L 516.7 660.2 L 516.9 660.1 L 519.5 659.6 L 521.5 659.1 L 523.2 658.2 L 523.7 658.1 L 525.8 657.5 L 526.8 657 L 528.7 655.9 L 530 655.4 L 532.1 653 L 532.5 652.8 L 536.3 651.5 L 537.3 651 L 538.6 650.3 L 539.8 649.2 L 540.1 648 L 540.1 647.4 L 540.3 646.7 L 541.7 644.4 L 544.3 645.3 L 545.1 645.5 L 550.1 645.6 L 553.3 645 L 554.8 643.7 L 556.4 642.5 L 557.1 642.5 L 559.2 642.9 L 560.7 643.3 L 563.6 643.6 L 566.1 644.7 L 566.7 645.1 L 568.4 646 L 571.2 647.6 L 572.4 648 L 572.8 648.2 L 573.1 648.4 L 574.3 648.1 L 574.9 647.7 L 575.6 647.6 L 578.1 647.6 L 579.4 647.6 L 586.7 645.8 L 591.1 645.7 L 593 645.1 L 596.8 645 L 601.8 645 L 602.1 644.8 L 605 644.1 L 608.8 643.7 L 609.8 643.6 L 615.1 642.4 L 615.7 641.8 L 616.1 641.2 L 618.7 641 L 622.5 641.7 L 624.4 641.2 L 626 639.9 L 630.5 638.8 L 631.3 638.9 L 632.6 639.6 L 633 640 L 634 640.4 L 638.4 642 Z" }
 ];
+
+const districtLabelSlots = {
+  "北投": [395, 225],
+  "士林": [445, 365],
+  "內湖": [675, 420],
+  "大同": [315, 470],
+  "中山": [420, 445],
+  "松山": [500, 475],
+  "南港": [785, 585],
+  "萬華": [235, 550],
+  "中正": [330, 610],
+  "大安": [450, 648],
+  "信義": [555, 550],
+  "文山": [575, 735]
+};
+
+function districtLabelPosition(district) {
+  return districtLabelSlots[district.name] || district.label;
+}
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -493,10 +512,101 @@ function routeDeltaText(baseMetric, compareMetric) {
   return "與北醫相近";
 }
 
+function routeObstacles() {
+  const hospitalBoxes = Object.values(labelSlots)
+    .map(([x, y]) => ({ left: x - 12, right: x + 98, top: y - 34, bottom: y + 18 }));
+  const districtBoxes = districtRegions.map((district) => {
+    const [x, y] = districtLabelPosition(district);
+    return { left: x - 40, right: x + 40, top: y - 22, bottom: y + 18 };
+  });
+  return [
+    ...hospitalBoxes,
+    ...districtBoxes,
+    { left: 630, right: 904, top: 654, bottom: 840 }
+  ];
+}
+
+function routeAroundLabels(start, target) {
+  const step = 12;
+  const minX = 100;
+  const maxX = 900;
+  const minY = 82;
+  const maxY = 798;
+  const cols = Math.floor((maxX - minX) / step) + 1;
+  const rows = Math.floor((maxY - minY) / step) + 1;
+  const obstacles = routeObstacles();
+  const toGrid = (point) => ({
+    col: clamp(Math.round((point.x - minX) / step), 0, cols - 1),
+    row: clamp(Math.round((point.y - minY) / step), 0, rows - 1)
+  });
+  const toPoint = ({ col, row }) => ({ x: minX + col * step, y: minY + row * step });
+  const keyFor = ({ col, row }) => `${col}:${row}`;
+  const startGrid = toGrid(start);
+  const targetGrid = toGrid(target);
+  const startKey = keyFor(startGrid);
+  const targetKey = keyFor(targetGrid);
+  const blocked = ({ col, row }) => {
+    const key = `${col}:${row}`;
+    if (key === startKey || key === targetKey) return false;
+    const point = toPoint({ col, row });
+    return obstacles.some((box) => point.x >= box.left && point.x <= box.right && point.y >= box.top && point.y <= box.bottom);
+  };
+  const directions = [
+    [1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1],
+    [1, 1, 1.414], [1, -1, 1.414], [-1, 1, 1.414], [-1, -1, 1.414]
+  ];
+  const open = [{ ...startGrid, f: 0 }];
+  const cameFrom = new Map();
+  const scores = new Map([[startKey, 0]]);
+  const visited = new Set();
+  const heuristic = (node) => Math.hypot(node.col - targetGrid.col, node.row - targetGrid.row);
+
+  while (open.length) {
+    open.sort((a, b) => a.f - b.f);
+    const current = open.shift();
+    const currentKey = keyFor(current);
+    if (visited.has(currentKey)) continue;
+    if (currentKey === targetKey) {
+      const gridPath = [current];
+      let cursorKey = currentKey;
+      while (cameFrom.has(cursorKey)) {
+        const previous = cameFrom.get(cursorKey);
+        gridPath.push(previous);
+        cursorKey = keyFor(previous);
+      }
+      gridPath.reverse();
+      const points = [start, ...gridPath.map(toPoint), target];
+      return points.filter((point, index) => {
+        if (index === 0 || index === points.length - 1) return true;
+        const previous = points[index - 1];
+        const next = points[index + 1];
+        return (point.x - previous.x) * (next.y - point.y) !== (point.y - previous.y) * (next.x - point.x);
+      });
+    }
+    visited.add(currentKey);
+    for (const [dc, dr, cost] of directions) {
+      const next = { col: current.col + dc, row: current.row + dr };
+      if (next.col < 0 || next.col >= cols || next.row < 0 || next.row >= rows || blocked(next)) continue;
+      if (dc && dr && (blocked({ col: current.col + dc, row: current.row }) || blocked({ col: current.col, row: current.row + dr }))) continue;
+      const nextKey = keyFor(next);
+      const score = scores.get(currentKey) + cost;
+      if (score >= (scores.get(nextKey) ?? Infinity)) continue;
+      cameFrom.set(nextKey, current);
+      scores.set(nextKey, score);
+      open.push({ ...next, f: score + heuristic(next) });
+    }
+  }
+  return [start, target];
+}
+
+function routePathData(points) {
+  return points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
+}
+
 function drawCuteMap() {
   const tmuh = hospitals.find((hospital) => hospital.id === tmuhId);
   const [tmuhLabelX, tmuhLabelY] = labelSlots[tmuhId];
-  const tmuhVisualTarget = { x: tmuhLabelX + 43, y: tmuhLabelY - 8 };
+  const tmuhVisualTarget = { x: tmuhLabelX + 111, y: tmuhLabelY - 8 };
   const origin = selectedDistrict ? project(selectedDistrict) : null;
   const districtAreas = districtRegions.map((district, index) => {
     return `
@@ -506,15 +616,14 @@ function drawCuteMap() {
     `;
   }).join("");
   const districtNames = districtRegions.map((district) => {
-    const [labelX, labelY] = district.label;
-    return `<text class="district-name" x="${labelX}" y="${labelY}">${escapeHtml(district.name)}</text>`;
+    const [labelX, labelY] = districtLabelPosition(district);
+    return `<text class="district-name" x="${labelX}" y="${labelY}">${escapeHtml(district.name)}區</text>`;
   }).join("");
   const districtClipShapes = districtRegions.map((district) => `<path d="${district.path}" />`).join("");
-  const routePath = origin
-    ? `M ${origin.x} ${origin.y} C ${origin.x + (tmuhVisualTarget.x - origin.x) * 0.34} ${origin.y - 60}, ${origin.x + (tmuhVisualTarget.x - origin.x) * 0.72} ${tmuhVisualTarget.y - 54}, ${tmuhVisualTarget.x} ${tmuhVisualTarget.y}`
-    : "";
+  const routePath = origin ? routePathData(routeAroundLabels(origin, tmuhVisualTarget)) : "";
   const ambulanceRoute = origin ? `
     <g class="tmuh-route-layer">
+      <path class="tmuh-route-halo" d="${routePath}" />
       <path id="tmuhRoutePath" class="tmuh-route" d="${routePath}" />
       <g class="ambulance-car">
         <rect class="ambulance-body" x="-18" y="-9" width="27" height="16" rx="5" />
@@ -561,16 +670,20 @@ function drawCuteMap() {
       ${districtAreas}
     </g>
     <path class="river" clip-path="url(#taipeiClip)" d="M 58 324 C 176 283, 238 386, 365 360 S 566 222, 748 296 S 906 408, 962 354" />
-    <g class="district-names">
-      ${districtNames}
-    </g>
+    ${hospitalNodes}
+    ${origin ? `<g class="tmuh-destination">
+      <circle cx="${tmuhVisualTarget.x}" cy="${tmuhVisualTarget.y}" r="7" />
+      <path d="M ${tmuhVisualTarget.x - 8} ${tmuhVisualTarget.y} L ${tmuhLabelX + 91} ${tmuhLabelY - 8}" />
+    </g>` : ""}
     ${ambulanceRoute}
     ${origin ? `<g class="origin-pin">
       <circle cx="${origin.x}" cy="${origin.y}" r="18" />
       <text x="${origin.x}" y="${origin.y + 5}">起</text>
       <text class="origin-label" x="${clamp(origin.x + 20, 34, 820)}" y="${clamp(origin.y - 18, 28, 805)}">起點</text>
     </g>` : ""}
-    ${hospitalNodes}
+    <g class="district-names">
+      ${districtNames}
+    </g>
     <g class="map-note">
       <rect x="642" y="666" width="250" height="165" rx="14" />
       <text class="note-title" x="671" y="688">圖例</text>
