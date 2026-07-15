@@ -1,0 +1,16 @@
+.search-row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 92px;
+}
+
+#addressSearchButton {
+  min-height: 42px;
+  width: auto;
+}
+
+@media (max-width: 560px) {
+  .search-row {
+    grid-template-columns: minmax(0, 1fr) 78px;
+  }
+}
