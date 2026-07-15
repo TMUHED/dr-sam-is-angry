@@ -6,6 +6,7 @@
     <title>跨區幸福送北醫 | Angry Sam</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316212c'/%3E%3Cpath d='M15 7h2v18h-2zM7 15h18v2H7z' fill='%23fff'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css?v=20260711-district-audit" />
+    <link rel="stylesheet" href="./search-fix.css?v=20260715-address-search" />
   </head>
   <body>
     <main class="shell">
@@ -25,6 +26,7 @@
             </label>
             <div class="search-row">
               <input id="addressInput" autocomplete="off" placeholder="輸入完整地址、路名門牌或地標" />
+              <button id="addressSearchButton" type="button">搜尋</button>
             </div>
             <div id="suggestions" class="suggestions" hidden></div>
           </div>
@@ -85,5 +87,6 @@
     </main>
 
     <script src="./app.js?v=20260711-district-audit"></script>
+    <script src="./search-fix.js?v=20260715-address-search"></script>
   </body>
 </html>
