@@ -127,7 +127,7 @@
         q: /台北|臺北|新北/.test(query)
           ? query
           : `臺北市 ${query}`,
-        lang: "zh",
+        lang: "default",
         limit: "8",
         bbox: "121.42,24.92,121.70,25.20"
       });
